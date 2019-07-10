@@ -1,0 +1,13 @@
+name = "GitHubJuliaMITTemplate"
+uuid = "82ee9cd6-8aeb-11e9-04e5-bd3792d65b20"
+authors = ["Qi Zhang <singularitti@outlook.com>"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

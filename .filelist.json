@@ -1,0 +1,10 @@
+{
+    "files": [
+        "README.md",
+        "Project.toml",
+        "test/runtests.jl",
+        "docs/make.jl",
+        "src/GitHubJuliaMITTemplate.jl",
+        "docs/src/index.md"
+    ]
+}
