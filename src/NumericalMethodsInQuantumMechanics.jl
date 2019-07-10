@@ -1,4 +1,4 @@
-module GitHubJuliaMITTemplate
+module NumericalMethodsInQuantumMechanics
 
 greet() = print("Hello World!")
 

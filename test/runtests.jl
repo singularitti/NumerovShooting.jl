@@ -1,6 +1,6 @@
-using GitHubJuliaMITTemplate
+using NumericalMethodsInQuantumMechanics
 using Test
 
-@testset "GitHubJuliaMITTemplate.jl" begin
+@testset "NumericalMethodsInQuantumMechanics.jl" begin
     # Write your own tests here.
 end

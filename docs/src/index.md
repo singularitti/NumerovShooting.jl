@@ -1,8 +1,8 @@
-# GitHubJuliaMITTemplate.jl
+# NumericalMethodsInQuantumMechanics.jl
 
 ```@index
 ```
 
 ```@autodocs
-Modules = [GitHubJuliaMITTemplate]
+Modules = [NumericalMethodsInQuantumMechanics]
 ```
