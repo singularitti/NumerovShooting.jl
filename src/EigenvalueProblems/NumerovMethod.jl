@@ -11,6 +11,9 @@ julia>
 """
 module NumerovMethod
 
+export numerov_iter,
+    integrate
+
 function numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<: Real}, svec::AbstractArray{<: Real})
     length(gvec) == length(svec) = 3 || error("Dimension must be 3!")
     g_prev, g, g_next = gvec
