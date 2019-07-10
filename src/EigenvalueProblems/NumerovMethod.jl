@@ -12,6 +12,7 @@ julia>
 module NumerovMethod
 
 function numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<: Real}, svec::AbstractArray{<: Real})
+    length(gvec) == length(svec) = 3 || error("Dimension must be 3!")
     g_prev, g, g_next = gvec
     s_prev, s, s_next = svec
     y_prev_coeff = -(1 + dx^2 / 12 * g_prev)
