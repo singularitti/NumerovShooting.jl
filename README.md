@@ -17,8 +17,20 @@ of year 2018-2019.
 
 ### Goals
 
-this course provides an introduction to numerical methods and techniques useful for the numerical solution of quantum mechanical problems, especially in atomic and condensed-matter physics. The course is organized as a series of theoretical lessons in which the physical problems and the numerical concepts needed for their resolution are presented, followed by practical sessions in which examples of implementatation for specific simple problems are presented. The student will learn to use the concepts and to practise scientific programming by modifying and extending the examples presented during the course.
+this course provides an introduction to numerical methods and techniques useful for the numerical solution of quantum
+mechanical problems, especially in atomic and condensed-matter physics. The course is organized as a series of
+theoretical lessons in which the physical problems and the numerical concepts needed for their resolution are
+presented, followed by practical sessions in which examples of implementatation for specific simple problems are
+presented. The student will learn to use the concepts and to practise scientific programming by modifying and
+extending the examples presented during the course.
 
 ### Syllabus
 
-Schroedinger equations in one dimension: techniques for numerical solutions. Solution of the Schroedinger equations for a potential with spherical symmetry. Scattering from a potential. Variational method: expansion on a basis of functions, secular problem, eigenvalues and eigenvectors. Examples: gaussian basis, plane-wave basis. Many-electron systems: Hartree and Hartree-Fock equations: self-consistent field, exchange interaction. Numerical solution of Hartree-Fock equations in atoms with radial integration and on a gaussian basis set. Introduction to numerical solution of electronic states in molecules. Electronic states in solids: solution of the Schroedinger equation for periodic potentials. Introduction to exact diagonalization of spin systems. Introduction to Density-Functional Theory.
+Schroedinger equations in one dimension: techniques for numerical solutions. Solution of the Schroedinger equations
+for a potential with spherical symmetry. Scattering from a potential. Variational method: expansion on a basis of
+functions, secular problem, eigenvalues and eigenvectors. Examples: gaussian basis, plane-wave basis. Many-electron
+systems: Hartree and Hartree-Fock equations: self-consistent field, exchange interaction. Numerical solution of
+Hartree-Fock equations in atoms with radial integration and on a gaussian basis set. Introduction to numerical
+solution of electronic states in molecules. Electronic states in solids: solution of the Schroedinger equation
+for periodic potentials. Introduction to exact diagonalization of spin systems. Introduction to Density-Functional
+Theory.
