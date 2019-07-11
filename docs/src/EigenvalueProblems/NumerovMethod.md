@@ -1,4 +1,4 @@
-# Numerov’s method
+# Numerov's method
 
 ```@meta
 CurrentModule = NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovMethod
