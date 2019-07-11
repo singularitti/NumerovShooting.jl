@@ -11,6 +11,8 @@ julia>
 """
 module NumerovMethod
 
+using NumericalMethodsInQuantumMechanics.EigenvalueProblems.Conditions
+
 export numerov_iter,
     integrate
 
@@ -53,19 +55,19 @@ function numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<: Re
 end  # function numerov_iter
 
 """
-    integrate(y0, yd0, r, gvec, svec)
+    integrate(ic, r, gvec, svec)
 
 Do the Numerov's method integration, return the solution ``y(x)``, given that ``g(x)`` and ``s(x)`` already
 as vectors (already applied on ``x``).
 
 # Arguments
-- `y0::Real`: the initial value ``y(x_0) = y_0``, could be a guess.
-- `yd0::Real`: the initial value ``y'(x_0) = y_0'``, could be a guess.
+- `ic::InitialCondition`: the initial condition ``y(x_0) = y_0`` and ``y'(x_0) = y_0'``, could be a guess.
 - `r::AbstractRange{<: Real}`: a range, the domain ``x``.
 - `gvec::AbstractArray{<: Real}`: the result of function ``g`` applied on ``x`` (range `r`).
 - `svec::AbstractArray{<: Real}`: the result of function ``s`` applied on ``x`` (range `r`).
 """
-function integrate(y0::Real, yd0::Real, r::AbstractRange{<: Real}, gvec::AbstractArray{<: Real}, svec::AbstractArray{<: Real})
+function integrate(ic::InitialCondition, r::AbstractRange{<: Real}, gvec::AbstractArray{<: Real}, svec::AbstractArray{<: Real})
+    y0, yd0 = ic
     dx = step(r)
     y = [y0, yd0 * dx]
     for i in 1:(length(r) - 2)
@@ -75,20 +77,19 @@ function integrate(y0::Real, yd0::Real, r::AbstractRange{<: Real}, gvec::Abstrac
     return y
 end  # function integrate
 """
-    integrate(y0, yd0, r, g, s)
+    integrate(ic, r, g, s)
 
-Same as `integrate(y0, yd0, r, gvec, svec)`, but `g` and `s` are two functions.
+Same as `integrate(ic, r, gvec, svec)`, but `g` and `s` are two functions.
 
 # Arguments
-- `y0::Real`: the initial value ``y(x_0) = y_0``, could be a guess.
-- `yd0::Real`: the initial value ``y'(x_0) = y_0'``, could be a guess.
+- `ic::InitialCondition`: the initial condition ``y(x_0) = y_0`` and ``y'(x_0) = y_0'``, could be a guess.
 - `r::AbstractRange{<: Real}`: a range, the domain ``x``.
 - `g::Function`: the function ``g``.
 - `s::Function`: the function ``s``.
 """
-function integrate(y0::Real, yd0::Real, r::AbstractRange{<: Real}, g::Function, s::Function)
+function integrate(ic::InitialCondition, r::AbstractRange{<: Real}, g::Function, s::Function)
     gvec, svec = map(g, r), map(s, r)
-    return integrate(y0, yd0, r, gvec, svec)
+    return integrate(ic, r, gvec, svec)
 end  # function integrate
 
 end
