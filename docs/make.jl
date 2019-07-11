@@ -14,4 +14,6 @@ makedocs(;
 
 deploydocs(;
     repo="github.com/singularitti/NumericalMethodsInQuantumMechanics.jl",
+    devbranch = "develop",
+    devurl = "dev",
 )
