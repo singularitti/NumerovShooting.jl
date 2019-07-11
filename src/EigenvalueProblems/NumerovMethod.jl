@@ -15,7 +15,7 @@ export numerov_iter,
     integrate
 
 function numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<: Real}, svec::AbstractArray{<: Real})
-    length(gvec) == length(svec) = 3 || error("Dimension must be 3!")
+    length(gvec) == length(svec) == 3 || error("Dimension must be 3!")
     g_prev, g, g_next = gvec
     s_prev, s, s_next = svec
     y_prev_coeff = -(1 + dx^2 / 12 * g_prev)
@@ -31,7 +31,7 @@ end  # function numerov_iter
 function integrate(y0::Real, yd0::Real, r::AbstractRange{<: Real}, gvec::AbstractArray{<: Real}, svec::AbstractArray{<: Real})
     dx = step(r)
     y = [y0, yd0 * dx]
-    for i in eachindex(r)
+    for i in 1:(length(r) - 2)
         y_next = numerov_iter(y[i], y[i + 1], dx, gvec[i:(i + 2)], svec[i:(i + 2)])
         push!(y, y_next)
     end
