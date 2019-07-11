@@ -16,6 +16,10 @@ using Roots: find_zero, Bisection
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems.Conditions
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovMethod
 
+export generate_initial_condition,
+    generate_problem,
+    shoot
+
 generate_initial_condition(bc::BoundaryCondition{T}, guess::T) where {T} = InitialCondition(bc[1], guess)
 
 function generate_problem(bc::BoundaryCondition, r, g, s)

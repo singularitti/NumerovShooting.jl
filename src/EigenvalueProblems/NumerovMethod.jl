@@ -11,6 +11,8 @@ julia>
 """
 module NumerovMethod
 
+using NumericalMethodsInQuantumMechanics.EigenvalueProblems.Conditions
+
 export numerov_iter,
     integrate
 
