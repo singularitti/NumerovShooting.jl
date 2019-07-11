@@ -28,18 +28,18 @@ function numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<: Re
     return 2(12 - 5dx^2 * gvec[2]) / (12 + dx^2 * gvec[3]) * y - y_prev
 end  # function numerov_iter
 
-function integrate(y0::Real, yd0::Real, dx::Real, x::Real, gvec::AbstractArray{<: Real}, svec::AbstractArray{<: Real})
+function integrate(y0::Real, yd0::Real, r::AbstractRange{<: Real}, gvec::AbstractArray{<: Real}, svec::AbstractArray{<: Real})
+    dx = step(r)
     y = [y0, yd0 * dx]
-    for i in range(1; length = div(x, dx))
+    for i in eachindex(r)
         y_next = numerov_iter(y[i], y[i + 1], dx, gvec[i:(i + 2)], svec[i:(i + 2)])
         push!(y, y_next)
     end
     return y
 end  # function integrate
-function integrate(y0::Real, yd0::Real, dx::Real, x::Real, g::Function, s::Function)
-    xvec = range(0; stop = x, step = dx)
-    gvec, svec = map(g, xvec), map(s, xvec)
-    return integrate(y0, yd0, dx, x, gvec, svec)
+function integrate(y0::Real, yd0::Real, r::AbstractRange{<: Real}, g::Function, s::Function)
+    gvec, svec = map(g, r), map(s, r)
+    return integrate(y0, yd0, r, gvec, svec)
 end  # function integrate
 
 end
