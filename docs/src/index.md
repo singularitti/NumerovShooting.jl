@@ -1,8 +1,15 @@
 # NumericalMethodsInQuantumMechanics.jl
 
-```@index
+## Manual Outline
+
+```@contents
+Pages = [
+    "EigenvalueProblems/NumerovMethod.md",
+]
+Depth = 3
 ```
 
-```@autodocs
-Modules = [NumericalMethodsInQuantumMechanics]
+### [Index](@id main-index)
+
+```@index
 ```
