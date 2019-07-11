@@ -88,9 +88,8 @@ Same as `integrate(ic, r, gvec, svec)`, but `g` and `s` are two functions.
 - `s::Function`: the function ``s``.
 """
 function integrate(ic::InitialCondition, r::AbstractRange{<: Real}, g::Function, s::Function)
-    y0, yd0 = ic
     gvec, svec = map(g, r), map(s, r)
-    return integrate(y0, yd0, r, gvec, svec)
+    return integrate(ic, r, gvec, svec)
 end  # function integrate
 
 end
