@@ -17,17 +17,15 @@ export numerov_iter,
 """
     numerov_iter(y_prev, y, dx, gvec, svec)
 
-Return the next step for the Numerov's method, given the current and previous step. See the [detailed doc]()
-for this method.
+Return the next step for the Numerov's method, given the current and previous step. See the [Numerov's method](@ref)
+documentation for more information.
 
 # Arguments
 - `y_prev::Real`: the `y[n - 1]` element.
 - `y::Real`: the `y[n]` element.
-- `dx::Real`: the step length, need to be small.
+- `dx::Real`: the step length ``h``, need to be small.
 - `gvec::AbstractArray{<: Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
 - `svec::AbstractArray{<: Real}`: stores `s[n - 1]`, `s[n]` and `s[n + 1]`.
-
-See also: [`integrate`](@ref)
 """
 function numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<: Real}, svec::AbstractArray{<: Real})
     length(gvec) == length(svec) == 3 || error("Dimension must be 3!")

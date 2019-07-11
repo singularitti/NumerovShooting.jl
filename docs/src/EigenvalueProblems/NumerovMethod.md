@@ -13,7 +13,7 @@ The *Numerov method* is introduced by Russian astronomer Boris Vasilyevich Numer
 with initial conditions
 
 ```math
-y(x_0) = y_0 \quad y'(x_0) = y_0'.
+y(x_0) = y_0, \quad y'(x_0) = y_0'.
 ```
 
 Follow the derivation from the [notes](http://www.fisica.uniud.it/~giannozz/Didattica/MQ/LectureNotes/mq-cap1.pdf), we derive the ``n + 1`` step of ``y_{n + 1} = y(x_{n + 1})`` satisfies
@@ -27,7 +27,7 @@ where ``g_{n} = g(x_{n})`` and ``s_{n} = s(x_{n})``, etc.
 
 Therefore, we could split the ``x``-axis to ``N`` pieces, and solve the solution ``y(x)`` piece-by-piece, i.e., from `y[1]` and `y[2]` to `y[3]`, repeatedly.
 
-If `s(x) \equiv 0` on the domain of ``x``, the the above equation simplifies to
+If `s(x) \\equiv 0` on the domain of ``x``, the the above equation simplifies to
 
 ```math
 y_{n + 1} = 2 \frac{ 12 - 5h^2 g_{n} }{ 12 + h^2 g_{n + 1} } y_{n} - y_{n - 1}.
