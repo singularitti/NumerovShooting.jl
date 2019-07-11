@@ -11,17 +11,19 @@ julia>
 """
 module Conditions
 
+using StaticArrays: FieldVector
+
 export InitialCondition,
     BoundaryCondition
 
-struct InitialCondition
-    y0::Real
-    yd0::Real
+struct InitialCondition{T} <: FieldVector{2, T}
+    y0::T
+    yd0::T
 end
 
-struct BoundaryCondition
-    y0::Real
-    y1::Real
+struct BoundaryCondition{T} <: FieldVector{2, T}
+    y0::T
+    y1::T
 end
 
 end
