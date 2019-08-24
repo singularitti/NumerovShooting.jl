@@ -1,5 +1,5 @@
 module NumericalMethodsInQuantumMechanics
 
-greet() = print("Hello World!")
+include("EigenvalueProblems/EigenvalueProblems.jl")
 
 end # module
