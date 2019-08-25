@@ -11,7 +11,7 @@ julia>
 """
 module ShootingMethod
 
-using Roots: find_zero, Bisection
+using Roots: find_zero, AbstractUnivariateZeroMethod
 
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems.Conditions
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovMethod
