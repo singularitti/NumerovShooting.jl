@@ -18,8 +18,7 @@ export numerov_iter, integrate
 """
     numerov_iter(y_prev, y, dx, gvec, svec)
 
-Return the next step for the Numerov's method, given the current and previous step. See the [Numerov's method](@ref)
-documentation for more information.
+Return the ``y[n + 1]`` step for the Numerov's method, given the current and previous step.
 
 # Arguments
 - `y_prev::Real`: the `y[n - 1]` element.
