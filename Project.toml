@@ -6,6 +6,7 @@ version = "0.1.0"
 [deps]
 Roots = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
 Setfield = "efcf1570-3423-57d1-acb7-fd33fddbac46"
+SpecialMatrices = "928aab9d-ef52-54ac-8ca1-acd7ca42c160"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 
 [compat]
