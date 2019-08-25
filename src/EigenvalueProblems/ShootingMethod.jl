@@ -16,15 +16,13 @@ using Roots: find_zero, Bisection
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems.Conditions
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovMethod
 
-export generate_initial_condition, generate_problem, shoot
+export setup_problem, shoot
 
-generate_initial_condition(bc::BoundaryCondition, guess) = InitialCondition(bc[1], guess)
-
-function generate_problem(bc::BoundaryCondition, r, g, s)
+function setup_problem(bc::BoundaryCondition, r, g, s)
     function (guess)
-        # last means ``y(t1)``, `ic` contains `yd0`, which is a guess, `bc[2]` is ``y1``.
+        # last means ``y(t1)``, `ic` contains a guess, `bc[2]` is ``y1``.
         # `last(integrate(ic_guess, r, g, s))` means `y(t1; yd0) - y1`
-        return last(integrate(generate_initial_condition(bc, guess), r, g, s)) - bc[2]
+        return last(integrate(InitialCondition(bc[1], guess), r, g, s)) - bc[2]
     end
 end  # function generate_f
 
