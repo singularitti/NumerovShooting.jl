@@ -26,9 +26,9 @@ function setup_problem(bc::BoundaryCondition, r, g, s)
     end
 end  # function setup_problem
 
-function shoot(f::Function, r::AbstractRange)::Real
+function shoot(f::Function, t::NTuple{2})::Real
     # `x` of the root finding is `yd0`.
-    return find_zero(f, (minimum(r), maximum(r)), Bisection())
+    return find_zero(f, (minimum(t), maximum(t)), Bisection())
 end  # function shoot
 
 end
