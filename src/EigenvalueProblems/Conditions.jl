@@ -13,8 +13,7 @@ module Conditions
 
 using StaticArrays: FieldVector
 
-export InitialCondition,
-    BoundaryCondition
+export InitialCondition, BoundaryCondition
 
 struct InitialCondition{T} <: FieldVector{2,T}
     y0::T

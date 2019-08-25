@@ -13,8 +13,7 @@ module NumerovMethod
 
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems.Conditions
 
-export numerov_iter,
-    integrate
+export numerov_iter, integrate
 
 """
     numerov_iter(y_prev, y, dx, gvec, svec)
@@ -26,10 +25,10 @@ documentation for more information.
 - `y_prev::Real`: the `y[n - 1]` element.
 - `y::Real`: the `y[n]` element.
 - `dx::Real`: the step length ``h``, need to be small.
-- `gvec::AbstractArray{<: Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
-- `svec::AbstractArray{<: Real}`: stores `s[n - 1]`, `s[n]` and `s[n + 1]`.
+- `gvec::AbstractArray{<:Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
+- `svec::AbstractArray{<:Real}`: stores `s[n - 1]`, `s[n]` and `s[n + 1]`.
 """
-function numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<: Real}, svec::AbstractArray{<: Real})
+function numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<:Real}, svec::AbstractArray{<:Real})
     length(gvec) == length(svec) == 3 || error("Dimension must be 3!")
     g_prev, g, g_next = gvec
     s_prev, s, s_next = svec
@@ -48,9 +47,9 @@ Same as `numerov_iter(y_prev, y, dx, gvec, svec)`, if ``s(x) ≡ 0`` on the doma
 - `y_prev::Real`: the `y[n - 1]` element.
 - `y::Real`: the `y[n]` element.
 - `dx::Real`: the step length, need to be small.
-- `gvec::AbstractArray{<: Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
+- `gvec::AbstractArray{<:Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
 """
-function numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<: Real})
+function numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<:Real})
     return 2(12 - 5dx^2 * gvec[2]) / (12 + dx^2 * gvec[3]) * y - y_prev
 end  # function numerov_iter
 
@@ -62,16 +61,21 @@ as vectors (already applied on ``x``).
 
 # Arguments
 - `ic::InitialCondition`: the initial condition ``y(x_0) = y_0`` and ``y'(x_0) = y_0'``, could be a guess.
-- `r::AbstractRange{<: Real}`: a range, the domain ``x``.
-- `gvec::AbstractArray{<: Real}`: the result of function ``g`` applied on ``x`` (range `r`).
-- `svec::AbstractArray{<: Real}`: the result of function ``s`` applied on ``x`` (range `r`).
+- `r::AbstractRange{<:Real}`: a range, the domain ``x``.
+- `gvec::AbstractArray{<:Real}`: the result of function ``g`` applied on ``x`` (range `r`).
+- `svec::AbstractArray{<:Real}`: the result of function ``s`` applied on ``x`` (range `r`).
 """
-function integrate(ic::InitialCondition, r::AbstractRange{<: Real}, gvec::AbstractArray{<: Real}, svec::AbstractArray{<: Real})
+function integrate(
+    ic::InitialCondition,
+    r::AbstractRange{<:Real},
+    gvec::AbstractArray{<:Real},
+    svec::AbstractArray{<:Real}
+)
     y0, yd0 = ic
     dx = step(r)
     y = [y0, yd0 * dx]
-    for i in 1:(length(r) - 2)
-        y_next = numerov_iter(y[i], y[i + 1], dx, gvec[i:(i + 2)], svec[i:(i + 2)])
+    for i = 1:(length(r)-2)
+        y_next = numerov_iter(y[i], y[i+1], dx, gvec[i:(i+2)], svec[i:(i+2)])
         push!(y, y_next)
     end
     return y
@@ -83,11 +87,11 @@ Same as `integrate(ic, r, gvec, svec)`, but `g` and `s` are two functions.
 
 # Arguments
 - `ic::InitialCondition`: the initial condition ``y(x_0) = y_0`` and ``y'(x_0) = y_0'``, could be a guess.
-- `r::AbstractRange{<: Real}`: a range, the domain ``x``.
+- `r::AbstractRange{<:Real}`: a range, the domain ``x``.
 - `g::Function`: the function ``g``.
 - `s::Function`: the function ``s``.
 """
-function integrate(ic::InitialCondition, r::AbstractRange{<: Real}, g::Function, s::Function)
+function integrate(ic::InitialCondition, r::AbstractRange{<:Real}, g::Function, s::Function)
     gvec, svec = map(g, r), map(s, r)
     return integrate(ic, r, gvec, svec)
 end  # function integrate
