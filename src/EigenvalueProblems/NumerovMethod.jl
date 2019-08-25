@@ -74,7 +74,7 @@ function integrate(
     y0, yd0 = ic
     dx = step(r)
     y = [y0, yd0 * dx]
-    for i = 1:(length(r)-2)
+    for i in 1:(length(r)-2)
         y_next = numerov_iter(y[i], y[i+1], dx, gvec[i:(i+2)], svec[i:(i+2)])
         push!(y, y_next)
     end
