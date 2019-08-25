@@ -21,10 +21,10 @@ export setup_problem, shoot
 function setup_problem(bc::BoundaryCondition, r, g, s)
     function (guess)
         # last means ``y(t1)``, `ic` contains a guess, `bc[2]` is ``y1``.
-        # `last(integrate(ic_guess, r, g, s))` means `y(t1; yd0) - y1`
+        # `last(integrate(ic_guess, r, g, s)) - bc[2]` means ``y(t1; yd0) - y1``.
         return last(integrate(InitialCondition(bc[1], guess), r, g, s)) - bc[2]
     end
-end  # function generate_f
+end  # function setup_problem
 
 function shoot(f::Function, r::AbstractRange)::Real
     # `x` of the root finding is `yd0`.
