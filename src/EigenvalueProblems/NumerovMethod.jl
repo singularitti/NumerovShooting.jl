@@ -63,14 +63,14 @@ as vectors (already applied on ``x``).
 - `svec::AbstractArray{<:Real}`: the result of function ``s`` applied on ``x`` (range `r`).
 """
 function integrate(ic::InitialCondition, r, gvec, svec)
-    y0, yd0 = ic
+    ϕ₀, ϕ′₀ = ic
     dx = step(r)
-    y = [y0, yd0 * dx]
+    ϕ = [ϕ₀, ϕ′₀ * dx]
     for i in 1:(length(r)-2)
-        y_next = numerov_iter(y[i], y[i+1], dx, gvec[i:(i+2)], svec[i:(i+2)])
-        push!(y, y_next)
+        ϕᵢ₊₂ = numerov_iter(ϕ[i], ϕ[i+1], dx, gvec[i:(i+2)], svec[i:(i+2)])
+        push!(ϕ, ϕᵢ₊₂)
     end
-    return y
+    return ϕ
 end
 """
     integrate(ic, r, g, s)
