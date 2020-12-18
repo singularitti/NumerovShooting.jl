@@ -5,7 +5,7 @@ using LinearAlgebra: dot
 using Roots
 using SpecialMatrices: Strang
 
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems.Conditions
+using NumericalMethodsInQuantumMechanics.EigenvalueProblems
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovMethod
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems.ShootingMethod
 

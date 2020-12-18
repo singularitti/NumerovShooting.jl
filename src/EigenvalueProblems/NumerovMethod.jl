@@ -11,9 +11,9 @@ julia>
 """
 module NumerovMethod
 
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems.Conditions
+using NumericalMethodsInQuantumMechanics.EigenvalueProblems: InitialCondition
 
-export numerov_iter, integrate
+export integrate
 
 """
     numerov_iter(y_prev, y, dx, gvec, svec)
@@ -27,7 +27,7 @@ Return the ``y[n + 1]`` step for the Numerov's method, given the current and pre
 - `gvec::AbstractArray{<:Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
 - `svec::AbstractArray{<:Real}`: stores `s[n - 1]`, `s[n]` and `s[n + 1]`.
 """
-function numerov_iter(yᵢ₋₁, yᵢ, dx, gvec, svec)
+function iter(yᵢ₋₁, yᵢ, dx, gvec, svec)
     gᵢ₋₁, gᵢ, gᵢ₊₁ = gvec
     sᵢ₋₁, sᵢ, sᵢ₊₁ = svec
     coeffᵢ₋₁ = -(1 + dx^2 / 12 * gᵢ₋₁)
@@ -47,8 +47,7 @@ Same as `numerov_iter(y_prev, y, dx, gvec, svec)`, if ``s(x) ≡ 0`` on the doma
 - `dx::Real`: the step length, need to be small.
 - `gvec::AbstractArray{<:Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
 """
-numerov_iter(yᵢ₋₁, yᵢ, dx, gvec) =
-    2(12 - 5dx^2 * gvec[2]) / (12 + dx^2 * gvec[3]) * yᵢ - yᵢ₋₁
+iter(yᵢ₋₁, yᵢ, dx, gvec) = 2(12 - 5dx^2 * gvec[2]) / (12 + dx^2 * gvec[3]) * yᵢ - yᵢ₋₁
 
 """
     integrate(ic, r, gvec, svec)
@@ -62,12 +61,16 @@ as vectors (already applied on ``x``).
 - `gvec::AbstractArray{<:Real}`: the result of function ``g`` applied on ``x`` (range `r`).
 - `svec::AbstractArray{<:Real}`: the result of function ``s`` applied on ``x`` (range `r`).
 """
-function integrate(ic::InitialCondition, r, gvec, svec)
+function integrate(gvec, svec, ic::InitialCondition)
+    if length(gvec) != length(svec)
+        throw(DimensionMismatch("Integ"))
+    end
+    N = length(gvec)
+    dx = inv(N)
     ϕ₀, ϕ′₀ = ic
-    dx = step(r)
-    ϕ = [ϕ₀, ϕ′₀ * dx]
-    for i in 1:(length(r)-2)
-        ϕᵢ₊₂ = numerov_iter(ϕ[i], ϕ[i+1], dx, gvec[i:(i+2)], svec[i:(i+2)])
+    ϕ = [ϕ₀, ϕ′₀ * dx]  # ϕ₀, ϕ₁
+    for i in 1:(N-2)
+        ϕᵢ₊₂ = iter(ϕ[i], ϕ[i+1], dx, gvec[i:(i+2)], svec[i:(i+2)])
         push!(ϕ, ϕᵢ₊₂)
     end
     return ϕ
@@ -83,9 +86,10 @@ Same as `integrate(ic, r, gvec, svec)`, but `g` and `s` are two functions.
 - `g::Function`: the function ``g``.
 - `s::Function`: the function ``s``.
 """
-function integrate(ic::InitialCondition, r, g, s)
-    gvec, svec = map(g, r), map(s, r)
-    return integrate(ic, r, gvec, svec)
+function integrate(g::Function, s::Function, ic::InitialCondition, dx)
+    vec = 0:dx:1
+    gvec, svec = map(g, vec), map(s, vec)
+    return integrate(gvec, svec, ic)
 end
 
 end
