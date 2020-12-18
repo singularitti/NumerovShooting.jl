@@ -62,7 +62,7 @@ as vectors (already applied on ``x``).
 - `gvec::AbstractArray{<:Real}`: the result of function ``g`` applied on ``x`` (range `r`).
 - `svec::AbstractArray{<:Real}`: the result of function ``s`` applied on ``x`` (range `r`).
 """
-function integrate(ic::InitialCondition, gvec, svec)
+function integrate(gvec, svec, ic::InitialCondition)
     if length(gvec) != length(svec)
         throw(DimensionMismatch("Integ"))
     end
@@ -87,10 +87,10 @@ Same as `integrate(ic, r, gvec, svec)`, but `g` and `s` are two functions.
 - `g::Function`: the function ``g``.
 - `s::Function`: the function ``s``.
 """
-function integrate(ic::InitialCondition, g::Function, s::Function, dx)
+function integrate(g::Function, s::Function, ic::InitialCondition, dx)
     vec = 0:dx:1
     gvec, svec = map(g, vec), map(s, vec)
-    return integrate(ic, gvec, svec)
+    return integrate(gvec, svec, ic)
 end
 
 end
