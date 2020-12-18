@@ -27,8 +27,7 @@ Return the ``y[n + 1]`` step for the Numerov's method, given the current and pre
 - `gvec::AbstractArray{<:Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
 - `svec::AbstractArray{<:Real}`: stores `s[n - 1]`, `s[n]` and `s[n + 1]`.
 """
-function numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<:Real}, svec::AbstractArray{<:Real})
-    length(gvec) == length(svec) == 3 || error("Dimension must be 3!")
+function numerov_iter(y_prev, y, dx, gvec, svec)
     g_prev, g, g_next = gvec
     s_prev, s, s_next = svec
     y_prev_coeff = -(1 + dx^2 / 12 * g_prev)
@@ -36,7 +35,7 @@ function numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<:Rea
     y_next_coeff = 1 + dx^2 / 12 * g_next
     s_coeff = dx^2 / 12 * (s_prev + 10s + s_next)
     return (y_coeff * y + y_prev_coeff * y_prev) / y_next_coeff
-end  # function numerov_method_iter
+end
 """
     numerov_iter(y_prev, y, dx, gvec)
 
@@ -48,9 +47,8 @@ Same as `numerov_iter(y_prev, y, dx, gvec, svec)`, if ``s(x) ≡ 0`` on the doma
 - `dx::Real`: the step length, need to be small.
 - `gvec::AbstractArray{<:Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
 """
-function numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<:Real})
-    return 2(12 - 5dx^2 * gvec[2]) / (12 + dx^2 * gvec[3]) * y - y_prev
-end  # function numerov_iter
+numerov_iter(y_prev, y, dx, gvec) =
+    2(12 - 5dx^2 * gvec[2]) / (12 + dx^2 * gvec[3]) * y - y_prev
 
 """
     integrate(ic, r, gvec, svec)
@@ -64,12 +62,7 @@ as vectors (already applied on ``x``).
 - `gvec::AbstractArray{<:Real}`: the result of function ``g`` applied on ``x`` (range `r`).
 - `svec::AbstractArray{<:Real}`: the result of function ``s`` applied on ``x`` (range `r`).
 """
-function integrate(
-    ic::InitialCondition,
-    r::AbstractRange{<:Real},
-    gvec::AbstractArray{<:Real},
-    svec::AbstractArray{<:Real}
-)
+function integrate(ic::InitialCondition, r, gvec, svec)
     y0, yd0 = ic
     dx = step(r)
     y = [y0, yd0 * dx]
@@ -78,7 +71,7 @@ function integrate(
         push!(y, y_next)
     end
     return y
-end  # function integrate
+end
 """
     integrate(ic, r, g, s)
 
@@ -90,9 +83,9 @@ Same as `integrate(ic, r, gvec, svec)`, but `g` and `s` are two functions.
 - `g::Function`: the function ``g``.
 - `s::Function`: the function ``s``.
 """
-function integrate(ic::InitialCondition, r::AbstractRange{<:Real}, g::Function, s::Function)
+function integrate(ic::InitialCondition, r, g, s)
     gvec, svec = map(g, r), map(s, r)
     return integrate(ic, r, gvec, svec)
-end  # function integrate
+end
 
 end
