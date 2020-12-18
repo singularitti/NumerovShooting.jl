@@ -11,28 +11,24 @@ julia>
 """
 module ShootingMethod
 
-using Roots: find_zero, Bisection
+using Roots: find_zero, AbstractUnivariateZeroMethod
 
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems.Conditions
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovMethod
 
-export generate_initial_condition,
-    generate_problem,
-    shoot
+export setup_problem, shoot
 
-generate_initial_condition(bc::BoundaryCondition, guess) = InitialCondition(bc[1], guess)
-
-function generate_problem(bc::BoundaryCondition, r, g, s)
+function setup_problem(bc::BoundaryCondition, r, g, s)
     function (guess)
-        # last means ``y(t1)``, `ic` contains `yd0`, which is a guess, `bc[2]` is ``y1``.
-        # `last(integrate(ic_guess, r, g, s))` means `y(t1; yd0) - y1`
-        return last(integrate(generate_initial_condition(bc, guess), r, g, s)) - bc[2]
+        # last means ``y(t1)``, `ic` contains a guess, `bc[2]` is ``y1``.
+        # `last(integrate(ic_guess, r, g, s)) - bc[2]` means ``y(t1; yd0) - y1``.
+        return last(integrate(InitialCondition(bc[1], guess), r, g, s)) - bc[2]
     end
-end  # function generate_f
+end  # function setup_problem
 
-function shoot(f::Function, r::AbstractRange)::Real
+function shoot(f::Function, method::AbstractUnivariateZeroMethod, r)::Real
     # `x` of the root finding is `yd0`.
-    return find_zero(f, (minimum(r), maximum(r)), Bisection())
+    return find_zero(f, (minimum(r), maximum(r)), method)
 end  # function shoot
 
 end

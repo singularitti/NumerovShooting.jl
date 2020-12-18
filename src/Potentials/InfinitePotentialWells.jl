@@ -11,9 +11,7 @@ julia>
 """
 module InfinitePotentialWells
 
-export AbstractInfinitePotentialWell,
-    InfiniteSquareWell,
-    InfiniteSphericalWell
+export AbstractInfinitePotentialWell, InfiniteSquareWell, InfiniteSphericalWell
 
 abstract type AbstractInfinitePotentialWell end
 
