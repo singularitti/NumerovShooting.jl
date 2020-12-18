@@ -62,11 +62,15 @@ as vectors (already applied on ``x``).
 - `gvec::AbstractArray{<:Real}`: the result of function ``g`` applied on ``x`` (range `r`).
 - `svec::AbstractArray{<:Real}`: the result of function ``s`` applied on ``x`` (range `r`).
 """
-function integrate(ic::InitialCondition, r, gvec, svec)
+function integrate(ic::InitialCondition, gvec, svec)
+    if length(gvec) != length(svec)
+        throw(DimensionMismatch("Integ"))
+    end
+    N = length(gvec)
+    dx = inv(N)
     ϕ₀, ϕ′₀ = ic
-    dx = step(r)
-    ϕ = [ϕ₀, ϕ′₀ * dx]
-    for i in 1:(length(r)-2)
+    ϕ = [ϕ₀, ϕ′₀ * dx]  # ϕ₀, ϕ₁
+    for i in 1:(N-2)
         ϕᵢ₊₂ = numerov_iter(ϕ[i], ϕ[i+1], dx, gvec[i:(i+2)], svec[i:(i+2)])
         push!(ϕ, ϕᵢ₊₂)
     end
@@ -83,9 +87,10 @@ Same as `integrate(ic, r, gvec, svec)`, but `g` and `s` are two functions.
 - `g::Function`: the function ``g``.
 - `s::Function`: the function ``s``.
 """
-function integrate(ic::InitialCondition, r, g::Base.Callable, s::Base.Callable)
-    gvec, svec = map(g, r), map(s, r)
-    return integrate(ic, r, gvec, svec)
+function integrate(ic::InitialCondition, g::Function, s::Function, dx)
+    vec = 0:dx:1
+    gvec, svec = map(g, vec), map(s, vec)
+    return integrate(ic, gvec, svec)
 end
 
 end
