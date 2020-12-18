@@ -27,14 +27,14 @@ Return the ``y[n + 1]`` step for the Numerov's method, given the current and pre
 - `gvec::AbstractArray{<:Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
 - `svec::AbstractArray{<:Real}`: stores `s[n - 1]`, `s[n]` and `s[n + 1]`.
 """
-function numerov_iter(y_prev, y, dx, gvec, svec)
-    g_prev, g, g_next = gvec
-    s_prev, s, s_next = svec
-    y_prev_coeff = -(1 + dx^2 / 12 * g_prev)
-    y_coeff = 2(1 - 5dx^2 / 12 * g)
-    y_next_coeff = 1 + dx^2 / 12 * g_next
-    s_coeff = dx^2 / 12 * (s_prev + 10s + s_next)
-    return (y_coeff * y + y_prev_coeff * y_prev) / y_next_coeff
+function numerov_iter(yᵢ₋₁, yᵢ, dx, gvec, svec)
+    gᵢ₋₁, gᵢ, gᵢ₊₁ = gvec
+    sᵢ₋₁, sᵢ, sᵢ₊₁ = svec
+    coeffᵢ₋₁ = -(1 + dx^2 / 12 * gᵢ₋₁)
+    coeffᵢ = 2(1 - 5dx^2 / 12 * gᵢ)
+    coeffᵢ₊₁ = 1 + dx^2 / 12 * gᵢ₊₁
+    coeff_sᵢ = dx^2 / 12 * (sᵢ₋₁ + 10sᵢ + sᵢ₊₁)
+    return (coeffᵢ * yᵢ + coeffᵢ₋₁ * yᵢ₋₁) / coeffᵢ₊₁
 end
 """
     numerov_iter(y_prev, y, dx, gvec)
@@ -47,8 +47,8 @@ Same as `numerov_iter(y_prev, y, dx, gvec, svec)`, if ``s(x) ≡ 0`` on the doma
 - `dx::Real`: the step length, need to be small.
 - `gvec::AbstractArray{<:Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
 """
-numerov_iter(y_prev, y, dx, gvec) =
-    2(12 - 5dx^2 * gvec[2]) / (12 + dx^2 * gvec[3]) * y - y_prev
+numerov_iter(yᵢ₋₁, yᵢ, dx, gvec) =
+    2(12 - 5dx^2 * gvec[2]) / (12 + dx^2 * gvec[3]) * yᵢ - yᵢ₋₁
 
 """
     integrate(ic, r, gvec, svec)
