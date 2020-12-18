@@ -13,7 +13,8 @@ module ShootingMethod
 
 using Roots: find_zero, AbstractUnivariateZeroMethod
 
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems.Conditions
+using NumericalMethodsInQuantumMechanics.EigenvalueProblems:
+    InitialCondition, BoundaryCondition
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovMethod
 
 export setup_problem, shoot

@@ -11,9 +11,9 @@ julia>
 """
 module NumerovMethod
 
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems.Conditions
+using NumericalMethodsInQuantumMechanics.EigenvalueProblems: InitialCondition
 
-export numerov_iter, integrate
+export integrate
 
 """
     numerov_iter(y_prev, y, dx, gvec, svec)
