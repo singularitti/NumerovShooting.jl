@@ -1,29 +1,45 @@
-# Documentation: http://docs.travis-ci.com/user/languages/julia/
+# Documentation: http://docs.travis-ci.com/user/languages/julia
 language: julia
+notifications:
+  email: false
+julia:
+  - 1.0
+  - 1.5
+  - nightly
 os:
   - linux
   - osx
-julia:
-  - 1.0
-  - nightly
-matrix:
+  - windows
+arch:
+  - x64
+  - x86
+  - arm64
+cache:
+  directories:
+    - ~/.julia/artifacts
+jobs:
+  fast_finish: true
   allow_failures:
     - julia: nightly
-  fast_finish: true
-notifications:
-  email: false
-  slack:
-    secure: vWJviLdXbmGjbZm3stsUB7O9JStPVR5rj1pRCNJf5Qi91AU/iRqqYVLeh9t2SwlQXUaE+1c5SE+BxQHcAC0d7fpHwWtFEW1pcMhoSY2BDS9vlbh4aJ3xaJlQ3XRjIp4vZbr8tSVqgHmZtmpbzk2ToJe+suBOWrp2uClmQF81JdiWJtixr01U9ViaTqtMly2TwmwZjjYzkg88O0owoU6C+gT9dr0RMT6J3STaGx8R6JEulurj8XCrCgqC4zNXcVhHDkou7W3FVKNYJvERyKN50yJs6E6PqeYtIJdZ2vrycqKSzskYcni+dgVxncZ/cLdEawIat7B/+vnyr7GU0ODSCyClaUcaAKqno05COdIbyLKRE1UEY1VN7NIYMzOUT2haYAk2mb2PoECBMQIU1PN6MrbG/8xuJn9cNeqPUP4mthQaj1YNyIkjYZhZSulxlUdY1nRVmlROHHg7g9dSOFEC/W1lbl7HcBNjv0ZJe45nhAOR7Jh+jGpbwvWliYrr3ufIJt/IdF5QVeUpT8vIg5t1CmrH4O4ZHuh2Gr1xLwisVJBqL4j75hIuHeIdFB5FbFZnSkorM59vEDm9jQx4qn2ZC0ESx1uhpI2VjLzCiV5NJ8z0DepNi3Cp2LE49zlL0bhAbpcWHz+H0qeVSalLnSypwgNLv+JHO6VD8pW8OkR6wLY=
+  exclude:
+    - arch: x86
+      os: osx
+    - arch: arm64
+      os: osx
+    - arch: arm64
+      os: windows
+    - arch: arm64
+      julia: nightly
 after_success:
-  - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
-  - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder())'
-jobs:
-  include:
-    - stage: Documentation
-      julia: 1.0
-      script: julia --project=docs -e '
-          using Pkg;
-          Pkg.develop(PackageSpec(path=pwd()));
-          Pkg.instantiate();
-          include("docs/make.jl");'
-      after_success: skip
+  - |
+    julia -e '
+      using Pkg
+      Pkg.add("Coverage")
+      using Coverage
+      Codecov.submit(process_folder())'
+  - |
+    julia -e '
+      using Pkg
+      Pkg.add("Coverage")
+      using Coverage
+      Coveralls.submit(process_folder())'
