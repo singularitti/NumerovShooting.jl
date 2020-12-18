@@ -1,4 +1,4 @@
-# NumericalMethodsInQuantumMechanics.jl
+# NumericalMethodsInQuantumMechanics
 
 This repo stores a [Julia](https://julialang.org/) implementation of Paolo Giannozzi's course [Numerical Methods in Quantum Mechanics](http://www.fisica.uniud.it/~giannozz/Corsi/MQ/mq.html)
 of year 2018-2019.
@@ -54,6 +54,14 @@ Theory.
 
 ## Manual Outline
 
+```@meta
+CurrentModule = NumericalMethodsInQuantumMechanics
+```
+
+```@autodocs
+Modules = [NumericalMethodsInQuantumMechanics]
+```
+
 ```@contents
 Pages = [
     "EigenvalueProblems/NumerovMethod.md",
@@ -64,4 +72,5 @@ Depth = 3
 ### [Index](@id main-index)
 
 ```@index
+
 ```

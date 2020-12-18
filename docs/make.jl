@@ -1,22 +1,24 @@
-using Documenter, NumericalMethodsInQuantumMechanics
+using NumericalMethodsInQuantumMechanics
+using Documenter
 
 makedocs(;
     modules=[NumericalMethodsInQuantumMechanics],
-    format=Documenter.HTML(),
+    authors="Qi Zhang <singularitti@outlook.com>",
+    repo="https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/blob/{commit}{path}#L{line}",
+    sitename="NumericalMethodsInQuantumMechanics.jl",
+    format=Documenter.HTML(;
+        prettyurls=get(ENV, "CI", "false") == "true",
+        canonical="https://singularitti.github.io/NumericalMethodsInQuantumMechanics.jl",
+        assets=String[],
+    ),
     pages=[
         "Home" => "index.md",
         "Manual" => Any[
             "EigenvalueProblems/NumerovMethod.md",
         ],
     ],
-    repo="https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/blob/{commit}{path}#L{line}",
-    sitename="NumericalMethodsInQuantumMechanics.jl",
-    authors="Qi Zhang <singularitti@outlook.com>",
-    assets=String[],
 )
 
 deploydocs(;
     repo="github.com/singularitti/NumericalMethodsInQuantumMechanics.jl",
-    devbranch = "feature/docs",
-    devurl = "dev",
 )
