@@ -26,5 +26,8 @@ function shoot(g, s, bc::BoundaryCondition, init, args...)
     # `x` of the root finding is `y′0`.
     return find_zero(f, init)
 end
+shoot(g::AbstractVector, bc::BoundaryCondition, init, args...) =
+    shoot(g, zeros(length(g)), bc, init, args...)
+shoot(g::Function, bc::BoundaryCondition, init, args...) = shoot(g, zero, bc, init, args...)
 
 end
