@@ -83,7 +83,7 @@ Same as `integrate(ic, r, gvec, svec)`, but `g` and `s` are two functions.
 - `g::Function`: the function ``g``.
 - `s::Function`: the function ``s``.
 """
-function integrate(ic::InitialCondition, r, g, s)
+function integrate(ic::InitialCondition, r, g::Base.Callable, s::Base.Callable)
     gvec, svec = map(g, r), map(s, r)
     return integrate(ic, r, gvec, svec)
 end
