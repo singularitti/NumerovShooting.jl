@@ -1,16 +1,35 @@
 # NumericalMethodsInQuantumMechanics
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://singularitti.github.io/NumericalMethodsInQuantumMechanics.jl/stable)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://singularitti.github.io/NumericalMethodsInQuantumMechanics.jl/dev)
-[![Build Status](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/workflows/CI/badge.svg)](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/actions)
-[![Build Status](https://travis-ci.com/singularitti/NumericalMethodsInQuantumMechanics.jl.svg?branch=master)](https://travis-ci.com/singularitti/NumericalMethodsInQuantumMechanics.jl)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/singularitti/NumericalMethodsInQuantumMechanics.jl?svg=true)](https://ci.appveyor.com/project/singularitti/NumericalMethodsInQuantumMechanics-jl)
-[![Build Status](https://cloud.drone.io/api/badges/singularitti/NumericalMethodsInQuantumMechanics.jl/status.svg)](https://cloud.drone.io/singularitti/NumericalMethodsInQuantumMechanics.jl)
-[![Build Status](https://api.cirrus-ci.com/github/singularitti/NumericalMethodsInQuantumMechanics.jl.svg)](https://cirrus-ci.com/github/singularitti/NumericalMethodsInQuantumMechanics.jl)
-[![Coverage](https://codecov.io/gh/singularitti/NumericalMethodsInQuantumMechanics.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/singularitti/NumericalMethodsInQuantumMechanics.jl)
-[![Coverage](https://coveralls.io/repos/github/singularitti/NumericalMethodsInQuantumMechanics.jl/badge.svg?branch=master)](https://coveralls.io/github/singularitti/NumericalMethodsInQuantumMechanics.jl?branch=master)
+|                                 **Documentation**                                  |                                                                                                 **Build Status**                                                                                                 |                                        **Others**                                         |
+| :--------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: |
+| [![Stable][docs-stable-img]][docs-stable-url] [![Dev][docs-dev-img]][docs-dev-url] | [![Build Status][gha-img]][gha-url] [![Build Status][appveyor-img]][appveyor-url] [![Build Status][cirrus-img]][cirrus-url] [![pipeline status][gitlab-img]][gitlab-url] [![Coverage][codecov-img]][codecov-url] | [![GitHub license][license-img]][license-url] [![Code Style: Blue][style-img]][style-url] |
 
-[TOC]
+[docs-stable-img]: https://img.shields.io/badge/docs-stable-blue.svg
+[docs-stable-url]: https://singularitti.github.io/NumericalMethodsInQuantumMechanics.jl/stable
+[docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg
+[docs-dev-url]: https://singularitti.github.io/NumericalMethodsInQuantumMechanics.jl/dev
+[gha-img]: https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/workflows/CI/badge.svg
+[gha-url]: https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/actions
+[appveyor-img]: https://ci.appveyor.com/api/projects/status/github/singularitti/NumericalMethodsInQuantumMechanics.jl?svg=true
+[appveyor-url]: https://ci.appveyor.com/project/singularitti/NumericalMethodsInQuantumMechanics-jl
+[cirrus-img]: https://api.cirrus-ci.com/github/singularitti/NumericalMethodsInQuantumMechanics.jl.svg
+[cirrus-url]: https://cirrus-ci.com/github/singularitti/NumericalMethodsInQuantumMechanics.jl
+[gitlab-img]: https://gitlab.com/singularitti/NumericalMethodsInQuantumMechanics.jl/badges/main/pipeline.svg
+[gitlab-url]: https://gitlab.com/singularitti/NumericalMethodsInQuantumMechanics.jl/-/pipelines
+[codecov-img]: https://codecov.io/gh/singularitti/NumericalMethodsInQuantumMechanics.jl/branch/main/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/singularitti/NumericalMethodsInQuantumMechanics.jl
+[license-img]: https://img.shields.io/github/license/singularitti/NumericalMethodsInQuantumMechanics.jl
+[license-url]: https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/blob/main/LICENSE
+[style-img]: https://img.shields.io/badge/code%20style-blue-4495d1.svg
+[style-url]: https://github.com/invenia/BlueStyle
+
+The code, which is [hosted on GitHub](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl), is tested
+using various continuous integration services for its validity.
+
+This repository is created and maintained by
+[@singularitti](https://github.com/singularitti), and contributions are highly welcome.
+
+## Package features
 
 This repo stores a [Julia](https://julialang.org/) implementation of Paolo Giannozzi's course [Numerical Methods in Quantum Mechanics](http://www.fisica.uniud.it/~giannozz/Corsi/MQ/mq.html)
 of year 2018-2019.
@@ -63,3 +82,39 @@ Theory.
 | 22.  |         | *Exact Diagonalization* Solution of the Heisenberg model with Lanczos chains (code *heisenberg_exact*: [Fortran](http://www.fisica.uniud.it/~giannozz/Didattica/MQ/Software/F90/heisenberg_exact.f90), [C](http://www.fisica.uniud.it/~giannozz/Didattica/MQ/Software/C/heisenberg_exact.c)). |
 | 23.  |         | *Density-Functional Theory* Introduction to the theory and to the plane-wave pseudopotential method (Notes: Ch.12) |
 | 24.  |         | *Density-Functional Theory II* Fast Fourier-Trasform and iterative techniques ([dumb](http://www.fisica.uniud.it/~giannozz/Didattica/MQ/Software/F90/ah_slow.f90) and [less dumb](http://www.fisica.uniud.it/~giannozz/Didattica/MQ/Software/F90/ah.f90) code, only Fortran, solving Si with [Appelbaum-Hamann](http://www.fisica.uniud.it/~giannozz/Didattica/MQ/LectureNotes/Appelbaum-Hamann.pdf) pseudopotentials).  Assignment of exam problems. |
+
+## Installation
+
+The package can be installed with the Julia package manager.
+From [the Julia REPL](https://docs.julialang.org/en/v1/stdlib/REPL/), type `]` to enter
+the [Pkg mode](https://docs.julialang.org/en/v1/stdlib/REPL/#Pkg-mode) and run:
+
+```julia-repl
+pkg> add NumericalMethodsInQuantumMechanics
+```
+
+Or, equivalently, via [`Pkg.jl`](https://pkgdocs.julialang.org/v1/):
+
+```julia
+julia> import Pkg; Pkg.add("NumericalMethodsInQuantumMechanics")
+```
+
+## Documentation
+
+- [**STABLE**][docs-stable-url] — **documentation of the most recently tagged version.**
+- [**DEV**][docs-dev-url] — _documentation of the in-development version._
+
+## Project status
+
+The package is developed for and tested against Julia `v1.6` and above on Linux, macOS, and
+Windows.
+
+## Questions and contributions
+
+You can post usage questions on
+[our discussion page](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/discussions).
+
+We welcome contributions, feature requests, and suggestions. If you encounter any problems,
+please open an [issue](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/issues).
+The [Contributing](@ref) page has
+a few guidelines that should be followed when opening pull requests and contributing code.
