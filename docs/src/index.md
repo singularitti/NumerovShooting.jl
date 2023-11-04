@@ -1,5 +1,18 @@
 # NumericalMethodsInQuantumMechanics
 
+Documentation for [NumericalMethodsInQuantumMechanics](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl).
+
+See the [Index](@ref main-index) for the complete list of documented functions
+and types.
+
+The code, which is [hosted on GitHub](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl), is tested
+using various continuous integration services for its validity.
+
+This repository is created and maintained by
+[@singularitti](https://github.com/singularitti), and contributions are highly welcome.
+
+## Package features
+
 This repo stores a [Julia](https://julialang.org/) implementation of Paolo Giannozzi's course [Numerical Methods in Quantum Mechanics](http://www.fisica.uniud.it/~giannozz/Corsi/MQ/mq.html)
 of year 2018-2019.
 
@@ -52,25 +65,63 @@ Theory.
 | 23.  |         | *Density-Functional Theory* Introduction to the theory and to the plane-wave pseudopotential method (Notes: Ch.12) |
 | 24.  |         | *Density-Functional Theory II* Fast Fourier-Trasform and iterative techniques ([dumb](http://www.fisica.uniud.it/~giannozz/Didattica/MQ/Software/F90/ah_slow.f90) and [less dumb](http://www.fisica.uniud.it/~giannozz/Didattica/MQ/Software/F90/ah.f90) code, only Fortran, solving Si with [Appelbaum-Hamann](http://www.fisica.uniud.it/~giannozz/Didattica/MQ/LectureNotes/Appelbaum-Hamann.pdf) pseudopotentials).  Assignment of exam problems. |
 
-## Manual Outline
+## Installation
 
-```@meta
-CurrentModule = NumericalMethodsInQuantumMechanics
+The package can be installed with the Julia package manager.
+From [the Julia REPL](https://docs.julialang.org/en/v1/stdlib/REPL/), type `]` to enter
+the [Pkg mode](https://docs.julialang.org/en/v1/stdlib/REPL/#Pkg-mode) and run:
+
+```julia-repl
+pkg> add NumericalMethodsInQuantumMechanics
 ```
 
-```@autodocs
-Modules = [NumericalMethodsInQuantumMechanics]
+Or, equivalently, via [`Pkg.jl`](https://pkgdocs.julialang.org/v1/):
+
+```@repl
+import Pkg; Pkg.add("NumericalMethodsInQuantumMechanics")
 ```
+
+## Documentation
+
+- [**STABLE**](https://singularitti.github.io/NumericalMethodsInQuantumMechanics.jl/stable) — **documentation of the most recently tagged version.**
+- [**DEV**](https://singularitti.github.io/NumericalMethodsInQuantumMechanics.jl/dev) — _documentation of the in-development version._
+
+## Project status
+
+The package is developed for and tested against Julia `v1.6` and above on Linux, macOS, and
+Windows.
+
+## Questions and contributions
+
+You can post usage questions on
+[our discussion page](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/discussions).
+
+We welcome contributions, feature requests, and suggestions. If you encounter any problems,
+please open an [issue](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/issues).
+The [Contributing](@ref) page has
+a few guidelines that should be followed when opening pull requests and contributing code.
+
+## Manual outline
 
 ```@contents
 Pages = [
-    "EigenvalueProblems/NumerovMethod.md",
+    "man/installation.md",
+    "man/troubleshooting.md",
+    "developers/contributing.md",
+    "developers/style-guide.md",
+    "developers/design-principles.md",
 ]
 Depth = 3
+```
+
+## Library outline
+
+```@contents
+Pages = ["lib/public.md", "lib/internals.md"]
 ```
 
 ### [Index](@id main-index)
 
 ```@index
-
+Pages = ["lib/public.md"]
 ```
