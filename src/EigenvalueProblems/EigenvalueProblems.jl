@@ -11,8 +11,6 @@ julia>
 """
 module EigenvalueProblems
 
-using Compat: @NamedTuple
-
 export InitialCondition, BoundaryCondition
 
 const InitialCondition = @NamedTuple{y0, y′0}
