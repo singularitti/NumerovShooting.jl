@@ -42,6 +42,35 @@ function integrate(step::NumerovStep)
     return yᵢ₊₁
 end
 
+struct NumerovIterator{N,Y,G,S,H} <: Integrator
+    y::NTuple{2,Y}
+    g::NTuple{N,G}
+    s::NTuple{N,S}
+    h::H
+end
+
+# See https://github.com/singularitti/Fibonacci.jl/blob/4f1292a/src/Fibonacci.jl#L44-L57
+Base.iterate(iter::NumerovIterator) = (last(iter.y), (iter.y, 2))
+function Base.iterate(iter::NumerovIterator, ((yᵢ₋₂, yᵢ₋₁), i))
+    if i > length(iter.g)
+        return nothing
+    else
+        yᵢ = integrate(
+            NumerovStep(
+                (yᵢ₋₂, yᵢ₋₁),
+                (iter.g[i - 2], iter.g[i - 1], iter.g[i]),
+                (iter.s[i - 2], iter.s[i - 1], iter.s[i]),
+                iter.h,
+            ),
+        )
+        return yᵢ, ((yᵢ₋₁, yᵢ), i + 1)
+    end
+end
+
+Base.eltype(::Type{NumerovIterator{N,Y}}) where {N,Y} = Y
+
+Base.length(iter::NumerovIterator) = length(iter.g)
+
 """
     numerov_iter(y_prev, y, dx, gvec, svec)
 
