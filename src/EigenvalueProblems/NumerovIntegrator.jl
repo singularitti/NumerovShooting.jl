@@ -72,7 +72,7 @@ function Base.iterate(iter::NumerovIterator, ((yᵢ₋₂, yᵢ₋₁), i))
     end
 end
 
-Base.eltype(::Type{NumerovIterator{N,Y}}) where {N,Y} = Y
+Base.eltype(::Type{<:NumerovIterator{N,Y}}) where {N,Y} = Y
 
 Base.length(iter::NumerovIterator) = length(iter.g)
 
