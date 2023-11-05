@@ -15,7 +15,7 @@ using Roots: find_zero, AbstractUnivariateZeroMethod
 
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems:
     InitialCondition, BoundaryCondition
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovMethod: integrate
+using NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovIntegrator: integrate
 
 export shoot
 

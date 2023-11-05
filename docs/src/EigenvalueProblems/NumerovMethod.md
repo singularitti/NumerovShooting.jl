@@ -1,7 +1,7 @@
 # Numerov's method
 
 ```@meta
-CurrentModule = NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovMethod
+CurrentModule = NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovIntegrator
 ```
 
 The *Numerov method* is introduced by Russian astronomer Boris Vasilyevich Numerov, to solve ODE

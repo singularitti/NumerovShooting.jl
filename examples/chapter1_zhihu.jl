@@ -6,7 +6,7 @@ using Roots
 using SpecialMatrices: Strang
 
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovMethod
+using NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovIntegrator
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems.ShootingMethod
 
 x = range(0; stop = 1, step = 0.002)
