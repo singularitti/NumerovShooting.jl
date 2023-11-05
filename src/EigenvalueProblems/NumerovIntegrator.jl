@@ -23,7 +23,8 @@ struct NumerovStep{Y,G,S,H} <: Integrator
     s::NTuple{3,S}
     h::H
 end
-NumerovStep(y, g, s, h) = NumerovStep(Tuple(y), Tuple(g), Tuple(s), h)
+NumerovStep(y, g, s, h) =
+    NumerovStep{eltype(y),eltype(g),eltype(s),typeof(h)}(Tuple(y), Tuple(g), Tuple(s), h)
 function NumerovStep(y::Function, g::Function, s::Function, x)
     h = unique(diff(collect(x)))
     @assert length(h) == 1 "the step length of `x` must be the same!"
@@ -48,6 +49,10 @@ struct NumerovIterator{N,Y,G,S,H} <: Integrator
     s::NTuple{N,S}
     h::H
 end
+NumerovIterator(y, g, s, h) =
+    NumerovIterator{length(g),eltype(y),eltype(g),eltype(s),typeof(h)}(
+        Tuple(y), Tuple(g), Tuple(s), h
+    )
 
 # See https://github.com/singularitti/Fibonacci.jl/blob/4f1292a/src/Fibonacci.jl#L44-L57
 Base.iterate(iter::NumerovIterator) = (last(iter.y), (iter.y, 2))
