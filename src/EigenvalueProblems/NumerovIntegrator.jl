@@ -32,7 +32,7 @@ function NumerovStep(y::Function, g::Function, s::Function, x)
     return NumerovStep(y.(x), g.(x), s.(x), only(h))
 end
 
-function integrate(step::NumerovStep)
+function evaluate(step::NumerovStep)
     yᵢ₋₁, yᵢ = step.y
     gᵢ₋₁, gᵢ, gᵢ₊₁ = step.g
     sᵢ₋₁, sᵢ, sᵢ₊₁ = step.s
@@ -61,7 +61,7 @@ function Base.iterate(iter::NumerovIterator, ((yᵢ₋₂, yᵢ₋₁), i))
     if i > length(iter.g)
         return nothing
     else
-        yᵢ = integrate(
+        yᵢ = evaluate(
             NumerovStep(
                 (yᵢ₋₂, yᵢ₋₁),
                 (iter.g[i - 2], iter.g[i - 1], iter.g[i]),
