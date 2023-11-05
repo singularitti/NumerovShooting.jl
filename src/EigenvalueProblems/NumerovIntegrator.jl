@@ -13,7 +13,7 @@ module NumerovIntegrator
 
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems: InitialCondition
 
-export integrate
+export integrate, eachstep
 
 abstract type Integrator end
 struct Numerov <: Integrator end
@@ -76,6 +76,8 @@ end
 Base.eltype(::Type{<:NumerovIterator{N,Y}}) where {N,Y} = Y
 
 Base.length(iter::NumerovIterator) = length(iter.g)
+
+eachstep(y, g, s, h) = NumerovIterator(y, g, s, h)
 
 """
     integrate(ic, r, gvec, svec)
