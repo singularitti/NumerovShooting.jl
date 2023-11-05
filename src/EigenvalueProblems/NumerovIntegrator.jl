@@ -16,6 +16,7 @@ using NumericalMethodsInQuantumMechanics.EigenvalueProblems: InitialCondition
 export integrate
 
 abstract type Integrator end
+struct Numerov <: Integrator end
 
 struct NumerovStep{Y,G,S,H}
     y::NTuple{2,Y}
@@ -88,7 +89,7 @@ as vectors (already applied on ``x``).
 - `gvec::AbstractArray{<:Real}`: the result of function ``g`` applied on ``x`` (range `r`).
 - `svec::AbstractArray{<:Real}`: the result of function ``s`` applied on ``x`` (range `r`).
 """
-function integrate(gvec, svec, ic::InitialCondition)
+function integrate(gvec, svec, ic::InitialCondition, ::Numerov)
     if length(gvec) != length(svec)
         throw(DimensionMismatch("Integ"))
     end
@@ -109,7 +110,7 @@ Same as `integrate(ic, r, gvec, svec)`, but `g` and `s` are two functions.
 - `g::Function`: the function ``g``.
 - `s::Function`: the function ``s``.
 """
-function integrate(g::Function, s::Function, ic::InitialCondition, dx)
+function integrate(g::Function, s::Function, ic::InitialCondition, dx, ::Numerov)
     vec = 0:dx:1
     gvec, svec = map(g, vec), map(s, vec)
     return integrate(gvec, svec, ic)
