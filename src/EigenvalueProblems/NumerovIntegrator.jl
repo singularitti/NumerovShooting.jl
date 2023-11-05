@@ -17,27 +17,27 @@ export integrate
 
 abstract type Integrator end
 
-struct Numerov{Y,G,S,H} <: Integrator
+struct NumerovStep{Y,G,S,H} <: Integrator
     y::NTuple{2,Y}
     g::NTuple{3,G}
     s::NTuple{3,S}
     h::H
 end
-Numerov(y, g, s, h) = Numerov(Tuple(y), Tuple(g), Tuple(s), h)
-function Numerov(y::Function, g::Function, s::Function, x)
+NumerovStep(y, g, s, h) = NumerovStep(Tuple(y), Tuple(g), Tuple(s), h)
+function NumerovStep(y::Function, g::Function, s::Function, x)
     h = unique(diff(collect(x)))
     @assert length(h) == 1 "the step length of `x` must be the same!"
-    return Numerov(y.(x), g.(x), s.(x), only(h))
+    return NumerovStep(y.(x), g.(x), s.(x), only(h))
 end
 
-function integrate(integrator::Numerov)
-    yᵢ₋₁, yᵢ = integrator.y
-    gᵢ₋₁, gᵢ, gᵢ₊₁ = integrator.g
-    sᵢ₋₁, sᵢ, sᵢ₊₁ = integrator.s
-    coeffᵢ₋₁ = -(1 + integrator.h^2 / 12 * gᵢ₋₁)
-    coeffᵢ = 2(1 - 5integrator.h^2 / 12 * gᵢ)
-    coeffᵢ₊₁ = 1 + integrator.h^2 / 12 * gᵢ₊₁
-    s = integrator.h^2 / 12 * (sᵢ₋₁ + 10sᵢ + sᵢ₊₁)
+function integrate(step::NumerovStep)
+    yᵢ₋₁, yᵢ = step.y
+    gᵢ₋₁, gᵢ, gᵢ₊₁ = step.g
+    sᵢ₋₁, sᵢ, sᵢ₊₁ = step.s
+    coeffᵢ₋₁ = -(1 + step.h^2 / 12 * gᵢ₋₁)
+    coeffᵢ = 2(1 - 5step.h^2 / 12 * gᵢ)
+    coeffᵢ₊₁ = 1 + step.h^2 / 12 * gᵢ₊₁
+    s = step.h^2 / 12 * (sᵢ₋₁ + 10sᵢ + sᵢ₊₁)
     yᵢ₊₁ = (coeffᵢ * yᵢ + coeffᵢ₋₁ * yᵢ₋₁ + s) / coeffᵢ₊₁
     return yᵢ₊₁
 end
