@@ -17,7 +17,7 @@ export integrate
 
 abstract type Integrator end
 
-struct NumerovStep{Y,G,S,H} <: Integrator
+struct NumerovStep{Y,G,S,H}
     y::NTuple{2,Y}
     g::NTuple{3,G}
     s::NTuple{3,S}
