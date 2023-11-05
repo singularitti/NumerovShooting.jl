@@ -96,11 +96,7 @@ function integrate(gvec, svec, ic::InitialCondition)
     dx = inv(N)
     ϕ₀, ϕ′₀ = ic
     ϕ = [ϕ₀, ϕ′₀ * dx]  # ϕ₀, ϕ₁
-    for i in 1:(N - 2)
-        ϕᵢ₊₂ = iter(ϕ[i], ϕ[i + 1], dx, gvec[i:(i + 2)], svec[i:(i + 2)])
-        push!(ϕ, ϕᵢ₊₂)
-    end
-    return ϕ
+    return collect(NumerovIterator(ϕ, gvec[3:end], svec[3:end], dx))
 end
 """
     integrate(ic, r, g, s)
