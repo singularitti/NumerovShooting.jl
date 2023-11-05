@@ -15,6 +15,21 @@ using NumericalMethodsInQuantumMechanics.EigenvalueProblems: InitialCondition
 
 export integrate
 
+abstract type Integrator end
+
+struct Numerov{Y,G,S,H} <: Integrator
+    y::NTuple{2,Y}
+    g::NTuple{3,G}
+    s::NTuple{3,S}
+    h::H
+end
+Numerov(y, g, s, h) = Numerov(Tuple(y), Tuple(g), Tuple(s), h)
+function Numerov(y::Function, g::Function, s::Function, x)
+    h = unique(diff(collect(x)))
+    @assert length(h) == 1 "the step length of `x` must be the same!"
+    return Numerov(y.(x), g.(x), s.(x), only(h))
+end
+
 """
     numerov_iter(y_prev, y, dx, gvec, svec)
 
