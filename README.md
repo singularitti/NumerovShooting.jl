@@ -36,6 +36,8 @@ of year 2018-2019.
 
 ## Course Description
 
+The lecture notes is [here](http://www.fisica.uniud.it/~giannozz/Didattica/MQ/LectureNotes/mq.pdf).
+
 ### Goals
 
 this course provides an introduction to numerical methods and techniques useful for the numerical solution of quantum
