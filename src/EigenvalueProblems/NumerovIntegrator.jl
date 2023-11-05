@@ -54,15 +54,6 @@ Return the ``y[n + 1]`` step for the Numerov's method, given the current and pre
 - `gvec::AbstractArray{<:Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
 - `svec::AbstractArray{<:Real}`: stores `s[n - 1]`, `s[n]` and `s[n + 1]`.
 """
-function iter(yᵢ₋₁, yᵢ, dx, gvec, svec)
-    gᵢ₋₁, gᵢ, gᵢ₊₁ = gvec
-    sᵢ₋₁, sᵢ, sᵢ₊₁ = svec
-    coeffᵢ₋₁ = -(1 + dx^2 / 12 * gᵢ₋₁)
-    coeffᵢ = 2(1 - 5dx^2 / 12 * gᵢ)
-    coeffᵢ₊₁ = 1 + dx^2 / 12 * gᵢ₊₁
-    coeff_sᵢ = dx^2 / 12 * (sᵢ₋₁ + 10sᵢ + sᵢ₊₁)
-    return (coeffᵢ * yᵢ + coeffᵢ₋₁ * yᵢ₋₁) / coeffᵢ₊₁
-end
 """
     numerov_iter(y_prev, y, dx, gvec)
 
@@ -74,7 +65,6 @@ Same as `numerov_iter(y_prev, y, dx, gvec, svec)`, if ``s(x) ≡ 0`` on the doma
 - `dx::Real`: the step length, need to be small.
 - `gvec::AbstractArray{<:Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
 """
-iter(yᵢ₋₁, yᵢ, dx, gvec) = 2(12 - 5dx^2 * gvec[2]) / (12 + dx^2 * gvec[3]) * yᵢ - yᵢ₋₁
 
 """
     integrate(ic, r, gvec, svec)
