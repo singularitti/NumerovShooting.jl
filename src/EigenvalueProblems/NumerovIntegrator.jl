@@ -55,7 +55,7 @@ NumerovIterator(y, g, s, h) =
     )
 
 # See https://github.com/singularitti/Fibonacci.jl/blob/4f1292a/src/Fibonacci.jl#L44-L57
-Base.iterate(iter::NumerovIterator) = (last(iter.y), (iter.y, 2))
+Base.iterate(iter::NumerovIterator) = (last(iter.y), (iter.y, 3))
 function Base.iterate(iter::NumerovIterator, ((yᵢ₋₂, yᵢ₋₁), i))
     if i > length(iter.g)
         return nothing
