@@ -30,6 +30,18 @@ function Numerov(y::Function, g::Function, s::Function, x)
     return Numerov(y.(x), g.(x), s.(x), only(h))
 end
 
+function integrate(integrator::Numerov)
+    yᵢ₋₁, yᵢ = integrator.y
+    gᵢ₋₁, gᵢ, gᵢ₊₁ = integrator.g
+    sᵢ₋₁, sᵢ, sᵢ₊₁ = integrator.s
+    coeffᵢ₋₁ = -(1 + integrator.h^2 / 12 * gᵢ₋₁)
+    coeffᵢ = 2(1 - 5integrator.h^2 / 12 * gᵢ)
+    coeffᵢ₊₁ = 1 + integrator.h^2 / 12 * gᵢ₊₁
+    s = integrator.h^2 / 12 * (sᵢ₋₁ + 10sᵢ + sᵢ₊₁)
+    yᵢ₊₁ = (coeffᵢ * yᵢ + coeffᵢ₋₁ * yᵢ₋₁ + s) / coeffᵢ₊₁
+    return yᵢ₊₁
+end
+
 """
     numerov_iter(y_prev, y, dx, gvec, svec)
 
