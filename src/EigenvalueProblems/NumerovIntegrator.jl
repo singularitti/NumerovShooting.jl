@@ -77,30 +77,6 @@ Base.eltype(::Type{NumerovIterator{N,Y}}) where {N,Y} = Y
 Base.length(iter::NumerovIterator) = length(iter.g)
 
 """
-    numerov_iter(y_prev, y, dx, gvec, svec)
-
-Return the ``y[n + 1]`` step for the Numerov's method, given the current and previous step.
-
-# Arguments
-- `y_prev::Real`: the `y[n - 1]` element.
-- `y::Real`: the `y[n]` element.
-- `dx::Real`: the step length ``h``, need to be small.
-- `gvec::AbstractArray{<:Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
-- `svec::AbstractArray{<:Real}`: stores `s[n - 1]`, `s[n]` and `s[n + 1]`.
-"""
-"""
-    numerov_iter(y_prev, y, dx, gvec)
-
-Same as `numerov_iter(y_prev, y, dx, gvec, svec)`, if ``s(x) ≡ 0`` on the domain.
-
-# Arguments
-- `y_prev::Real`: the `y[n - 1]` element.
-- `y::Real`: the `y[n]` element.
-- `dx::Real`: the step length, need to be small.
-- `gvec::AbstractArray{<:Real}`: stores `g[n - 1]`, `g[n]` and `g[n + 1]`.
-"""
-
-"""
     integrate(ic, r, gvec, svec)
 
 Do the Numerov's method integration, return the solution ``y(x)``, given that ``g(x)`` and ``s(x)`` already
