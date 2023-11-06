@@ -1,21 +1,5 @@
-"""
-# module NumerovIntegrator
-
-
-
-# Examples
-
-```jldoctest
-julia>
-```
-"""
-module NumerovIntegrator
-
-using NumerovShooting: InitialCondition, Problem, InternalProblem
 using OffsetArrays: Origin, OffsetVector
 using StaticArrays: SVector
-
-import ..NumerovShooting: solve
 
 export Numerov, integrate
 
@@ -98,5 +82,3 @@ function solve(problem::InternalProblem, ::Numerov)
     return prepend!(values, first(problem.y))
 end
 solve(problem::Problem, ::Numerov) = solve(InternalProblem(problem), Numerov())
-
-end
