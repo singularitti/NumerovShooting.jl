@@ -16,7 +16,7 @@ using NumericalMethodsInQuantumMechanics.EigenvalueProblems:
 using OffsetArrays: Origin, OffsetVector
 using StaticArrays: SVector
 
-export Numerov, integrate, eachstep
+export Numerov, integrate
 
 abstract type Integrator end
 struct Numerov <: Integrator end
@@ -77,8 +77,6 @@ end
 Base.eltype(::Type{<:NumerovIterator{N,G,S,Y,X}}) where {N,G,S,Y,X} = Y
 
 Base.length(iter::NumerovIterator) = length(iter.g)
-
-eachstep(g, s, y, h) = NumerovIterator(g, s, y, h)
 
 """
     integrate(ic, r, gvec, svec)
