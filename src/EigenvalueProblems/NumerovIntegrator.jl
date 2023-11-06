@@ -40,28 +40,15 @@ function evaluate(step::NumerovStep)
     return yᵢ₊₁
 end
 
-struct NumerovIterator{G,S,Y,H} <: Integrator
-    g::OffsetVector{G,Vector{G}}
-    s::OffsetVector{S,Vector{S}}
-    y::OffsetVector{Y,Vector{Y}}
-    h::H
-end
-function NumerovIterator(g, s, y, h)
-    if size(g) != size(s)
-        throw(DimensionMismatch("the size of `g` and `s` must be the same!"))
-    end
-    if length(g) < 3
-        throw(ArgumentError("the length of `g` and `s` must be greater than 3!"))
-    end
-    if length(y) != 2
-        throw(ArgumentError("the length of `y` must be 2!"))
-    end
-    return NumerovIterator{eltype(g),eltype(s),eltype(y),typeof(h)}(
-        Origin(0)(g), Origin(0)(s), Origin(0)(y), h
-    )
+struct NumerovIterator{N,G,S,Y,X} <: Integrator
+    g::OffsetVector{G,SVector{N,G}}
+    s::OffsetVector{S,SVector{N,S}}
+    y::OffsetVector{Y,SVector{2,Y}}
+    x::OffsetVector{X,SVector{N,X}}
 end
 
 # See https://github.com/singularitti/Fibonacci.jl/blob/4f1292a/src/Fibonacci.jl#L44-L57
+# See https://en.wikipedia.org/wiki/Numerov%27s_method#The_method
 Base.iterate(iter::NumerovIterator) = iter.y[0], (iter.y, 1)  # y₀, ((y₀, y₁), 1)
 function Base.iterate(iter::NumerovIterator, ((yᵢ₋₁, yᵢ), i))
     if i > length(iter.g) - 2  # Minus 2 since we start the index from 0 & skip the first element of `y` (index=0)
@@ -72,7 +59,7 @@ function Base.iterate(iter::NumerovIterator, ((yᵢ₋₁, yᵢ), i))
                 (iter.g[i - 1], iter.g[i], iter.g[i + 1]),  # gᵢ₋₁, gᵢ, gᵢ₊₁
                 (iter.s[i - 1], iter.s[i], iter.s[i + 1]),  # sᵢ₋₁, sᵢ, sᵢ₊₁
                 (yᵢ₋₁, yᵢ),
-                iter.h,
+                iter.x[i + 1] - iter.x[i],
             ),
         )
         return yᵢ, ((yᵢ, yᵢ₊₁), i + 1)
