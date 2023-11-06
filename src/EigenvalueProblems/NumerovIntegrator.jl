@@ -12,11 +12,11 @@ julia>
 module NumerovIntegrator
 
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems:
-    InitialCondition, InternalProblem
+    InitialCondition, Problem, InternalProblem
 using OffsetArrays: Origin, OffsetVector
 using StaticArrays: SVector
 
-export Numerov, integrate
+export Numerov, integrate, solve
 
 abstract type Integrator end
 struct Numerov <: Integrator end
@@ -57,7 +57,7 @@ end
 
 # See https://github.com/singularitti/Fibonacci.jl/blob/4f1292a/src/Fibonacci.jl#L44-L57
 # See https://en.wikipedia.org/wiki/Numerov%27s_method#The_method
-Base.iterate(iter::NumerovIterator) = iter.y[0], (iter.y, 1)  # y₀, ((y₀, y₁), 1)
+Base.iterate(iter::NumerovIterator) = iter.y[1], (iter.y, 1)  # y₁, ((y₀, y₁), 1)
 function Base.iterate(iter::NumerovIterator, ((yᵢ₋₁, yᵢ), i))
     if i > length(iter.g) - 2  # Minus 2 since we start the index from 0 & skip the first element of `y` (index=0)
         return nothing
@@ -70,13 +70,13 @@ function Base.iterate(iter::NumerovIterator, ((yᵢ₋₁, yᵢ), i))
                 iter.x[i + 1] - iter.x[i],
             ),
         )
-        return yᵢ, ((yᵢ, yᵢ₊₁), i + 1)
+        return yᵢ₊₁, ((yᵢ, yᵢ₊₁), i + 1)
     end
 end
 
 Base.eltype(::Type{NumerovIterator{N,G,S,Y,X}}) where {N,G,S,Y,X} = Y
 
-Base.length(::NumerovIterator{N}) where {N} = N
+Base.length(::NumerovIterator{N}) where {N} = N - 1
 
 """
     integrate(ic, r, gvec, svec)
@@ -92,7 +92,11 @@ as vectors (already applied on ``x``).
 """
 integrate(𝐠, 𝐬, 𝐲, 𝐱, y′₀, ::Numerov) =
     NumerovIterator(𝐠, 𝐬, (first(𝐲), y′₀ * first(diff(𝐱))), 𝐱)
-integrate(problem::InternalProblem, y′₀, ::Numerov) =
-    integrate(problem.g, problem.s, problem.y, problem.x, y′₀, Numerov())
+
+function solve(problem::InternalProblem, y′₀, ::Numerov)
+    values = collect(integrate(problem.g, problem.s, problem.y, problem.x, y′₀, Numerov()))
+    return prepend!(values, first(problem.y))
+end
+solve(problem::Problem, y′₀, ::Numerov) = solve(InternalProblem(problem), y′₀, Numerov())
 
 end
