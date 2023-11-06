@@ -19,8 +19,8 @@ struct InitialCondition{Y,Y′}
 end
 
 abstract type BoundaryCondition end
-struct DirichletBoundaryCondition{S,T} <: BoundaryCondition
-    y₀::S
+struct DirichletBoundaryCondition{T} <: BoundaryCondition
+    y₀::T
     y₁::T
 end
 
