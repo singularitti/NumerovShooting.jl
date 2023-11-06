@@ -16,7 +16,9 @@ using NumericalMethodsInQuantumMechanics.EigenvalueProblems:
 using OffsetArrays: Origin, OffsetVector
 using StaticArrays: SVector
 
-export Numerov, integrate, solve
+import ..EigenvalueProblems: solve
+
+export Numerov, integrate
 
 abstract type Integrator end
 struct Numerov <: Integrator end
@@ -90,13 +92,12 @@ as vectors (already applied on ``x``).
 - `gvec::AbstractArray{<:Real}`: the result of function ``g`` applied on ``x`` (range `r`).
 - `svec::AbstractArray{<:Real}`: the result of function ``s`` applied on ``x`` (range `r`).
 """
-integrate(𝐠, 𝐬, 𝐲, 𝐱, y′₀, ::Numerov) =
-    NumerovIterator(𝐠, 𝐬, (first(𝐲), y′₀ * first(diff(𝐱))), 𝐱)
+integrate(𝐠, 𝐬, 𝐲, 𝐱, ::Numerov) = NumerovIterator(𝐠, 𝐬, 𝐲, 𝐱)
 
-function solve(problem::InternalProblem, y′₀, ::Numerov)
-    values = collect(integrate(problem.g, problem.s, problem.y, problem.x, y′₀, Numerov()))
+function solve(problem::InternalProblem, ::Numerov)
+    values = collect(integrate(problem.g, problem.s, problem.y, problem.x, Numerov()))
     return prepend!(values, first(problem.y))
 end
-solve(problem::Problem, y′₀, ::Numerov) = solve(InternalProblem(problem), y′₀, Numerov())
+solve(problem::Problem, ::Numerov) = solve(InternalProblem(problem), Numerov())
 
 end
