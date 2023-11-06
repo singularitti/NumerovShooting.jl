@@ -11,7 +11,8 @@ julia>
 """
 module NumerovIntegrator
 
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems: InitialCondition
+using NumericalMethodsInQuantumMechanics.EigenvalueProblems:
+    InitialCondition, InternalProblem
 using OffsetArrays: Origin, OffsetVector
 using StaticArrays: SVector
 
@@ -91,10 +92,10 @@ as vectors (already applied on ``x``).
 - `gvec::AbstractArray{<:Real}`: the result of function ``g`` applied on ``x`` (range `r`).
 - `svec::AbstractArray{<:Real}`: the result of function ``s`` applied on ``x`` (range `r`).
 """
-function integrate(𝐠, 𝐬, ic::InitialCondition, h, ::Numerov)
-    ϕ₀, ϕ′₀ = ic.y₀, ic.y′₀
-    ϕ = [ϕ₀, ϕ′₀ * h]  # ϕ₀, ϕ₁
-    return collect(NumerovIterator(𝐠, 𝐬, ϕ, h))
+function integrate(𝐠, 𝐬, 𝐲, 𝐱, y′₀, ::Numerov)
+    return NumerovIterator(𝐠, 𝐬, (first(𝐲), y′₀ * first(diff(𝐱))), 𝐱)
 end
+integrate(problem::InternalProblem, y′₀, ::Numerov) =
+    integrate(problem.g, problem.s, problem.y, problem.x, y′₀, Numerov())
 
 end
