@@ -22,7 +22,7 @@ struct InitialCondition{Y,Y′}
 end
 
 abstract type BoundaryCondition end
-struct DirichletBoundaryCondition{T} <: BoundaryCondition
+struct Dirichlet{T} <: BoundaryCondition
     y₀::T
     y₁::T
 end
