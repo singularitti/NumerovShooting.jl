@@ -57,7 +57,7 @@ end
 
 # See https://github.com/singularitti/Fibonacci.jl/blob/4f1292a/src/Fibonacci.jl#L44-L57
 # See https://en.wikipedia.org/wiki/Numerov%27s_method#The_method
-Base.iterate(iter::NumerovIterator) = iter.y[0], (iter.y, 1)  # y₀, ((y₀, y₁), 1)
+Base.iterate(iter::NumerovIterator) = iter.y[1], (iter.y, 1)  # y₁, ((y₀, y₁), 1)
 function Base.iterate(iter::NumerovIterator, ((yᵢ₋₁, yᵢ), i))
     if i > length(iter.g) - 2  # Minus 2 since we start the index from 0 & skip the first element of `y` (index=0)
         return nothing
@@ -70,7 +70,7 @@ function Base.iterate(iter::NumerovIterator, ((yᵢ₋₁, yᵢ), i))
                 iter.x[i + 1] - iter.x[i],
             ),
         )
-        return yᵢ, ((yᵢ, yᵢ₊₁), i + 1)
+        return yᵢ₊₁, ((yᵢ, yᵢ₊₁), i + 1)
     end
 end
 
