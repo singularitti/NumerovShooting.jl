@@ -28,6 +28,7 @@ struct Problem{G,S,T,H}
     g::G
     s::S
     bc::DirichletBoundaryCondition{T}
+    n::Int64
     h::H
 end
 

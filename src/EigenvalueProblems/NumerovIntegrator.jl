@@ -19,50 +19,50 @@ export Numerov, integrate, eachstep
 abstract type Integrator end
 struct Numerov <: Integrator end
 
-struct NumerovStep{Y,G,S,H}
-    y::NTuple{2,Y}
+struct NumerovStep{G,S,Y,H}
     g::NTuple{3,G}
     s::NTuple{3,S}
+    y::NTuple{2,Y}
     h::H
 end
-NumerovStep(y, g, s, h) =
-    NumerovStep{eltype(y),eltype(g),eltype(s),typeof(h)}(Tuple(y), Tuple(g), Tuple(s), h)
-function NumerovStep(y::Function, g::Function, s::Function, x)
+NumerovStep(g, s, y, h) =
+    NumerovStep{eltype(g),eltype(s),eltype(y),typeof(h)}(Tuple(g), Tuple(s), Tuple(y), h)
+function NumerovStep(g::Function, s::Function, y::Function, x)
     h = unique(diff(collect(x)))
     @assert length(h) == 1 "the step length of `x` must be the same!"
-    return NumerovStep(y.(x), g.(x), s.(x), only(h))
+    return NumerovStep(g.(x), s.(x), y.(x), only(h))
 end
 
 function evaluate(step::NumerovStep)
-    yᵢ₋₁, yᵢ = step.y
     gᵢ₋₁, gᵢ, gᵢ₊₁ = step.g
     sᵢ₋₁, sᵢ, sᵢ₊₁ = step.s
-    coeffᵢ₋₁ = -(1 + step.h^2 / 12 * gᵢ₋₁)
-    coeffᵢ = 2(1 - 5step.h^2 / 12 * gᵢ)
-    coeffᵢ₊₁ = 1 + step.h^2 / 12 * gᵢ₊₁
+    yᵢ₋₁, yᵢ = step.y
+    cᵢ₋₁ = -(1 + step.h^2 / 12 * gᵢ₋₁)
+    cᵢ = 2(1 - 5step.h^2 / 12 * gᵢ)
+    cᵢ₊₁ = 1 + step.h^2 / 12 * gᵢ₊₁
     s = step.h^2 / 12 * (sᵢ₋₁ + 10sᵢ + sᵢ₊₁)
-    yᵢ₊₁ = (coeffᵢ * yᵢ + coeffᵢ₋₁ * yᵢ₋₁ + s) / coeffᵢ₊₁
+    yᵢ₊₁ = (cᵢ * yᵢ + cᵢ₋₁ * yᵢ₋₁ + s) / cᵢ₊₁
     return yᵢ₊₁
 end
 
-struct NumerovIterator{Y,G,S,H} <: Integrator
-    y::OffsetVector{Y,Vector{Y}}
+struct NumerovIterator{G,S,Y,H} <: Integrator
     g::OffsetVector{G,Vector{G}}
     s::OffsetVector{S,Vector{S}}
+    y::OffsetVector{Y,Vector{Y}}
     h::H
 end
-function NumerovIterator(y, g, s, h)
-    if length(y) != 2
-        throw(ArgumentError("the length of `y` must be 2!"))
-    end
+function NumerovIterator(g, s, y, h)
     if size(g) != size(s)
         throw(DimensionMismatch("the size of `g` and `s` must be the same!"))
     end
     if length(g) < 3
         throw(ArgumentError("the length of `g` and `s` must be greater than 3!"))
     end
-    return NumerovIterator{eltype(y),eltype(g),eltype(s),typeof(h)}(
-        Origin(0)(y), Origin(0)(g), Origin(0)(s), h
+    if length(y) != 2
+        throw(ArgumentError("the length of `y` must be 2!"))
+    end
+    return NumerovIterator{eltype(g),eltype(s),eltype(y),typeof(h)}(
+        Origin(0)(g), Origin(0)(s), Origin(0)(y), h
     )
 end
 
@@ -74,9 +74,9 @@ function Base.iterate(iter::NumerovIterator, ((yᵢ₋₁, yᵢ), i))
     else
         yᵢ₊₁ = evaluate(
             NumerovStep(
-                (yᵢ₋₁, yᵢ),
                 (iter.g[i - 1], iter.g[i], iter.g[i + 1]),  # gᵢ₋₁, gᵢ, gᵢ₊₁
                 (iter.s[i - 1], iter.s[i], iter.s[i + 1]),  # sᵢ₋₁, sᵢ, sᵢ₊₁
+                (yᵢ₋₁, yᵢ),
                 iter.h,
             ),
         )
@@ -88,7 +88,7 @@ Base.eltype(::Type{<:NumerovIterator{N,Y}}) where {N,Y} = Y
 
 Base.length(iter::NumerovIterator) = length(iter.g)
 
-eachstep(y, g, s, h) = NumerovIterator(y, g, s, h)
+eachstep(g, s, y, h) = NumerovIterator(g, s, y, h)
 
 """
     integrate(ic, r, gvec, svec)
@@ -105,7 +105,7 @@ as vectors (already applied on ``x``).
 function integrate(𝐠, 𝐬, ic::InitialCondition, h, ::Numerov)
     ϕ₀, ϕ′₀ = ic.y₀, ic.y′₀
     ϕ = [ϕ₀, ϕ′₀ * h]  # ϕ₀, ϕ₁
-    return collect(NumerovIterator(ϕ, 𝐠, 𝐬, h))
+    return collect(NumerovIterator(𝐠, 𝐬, ϕ, h))
 end
 """
     integrate(ic, r, g, s)
