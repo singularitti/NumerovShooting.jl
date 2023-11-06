@@ -90,9 +90,8 @@ as vectors (already applied on ``x``).
 - `gvec::AbstractArray{<:Real}`: the result of function ``g`` applied on ``x`` (range `r`).
 - `svec::AbstractArray{<:Real}`: the result of function ``s`` applied on ``x`` (range `r`).
 """
-function integrate(𝐠, 𝐬, 𝐲, 𝐱, y′₀, ::Numerov)
-    return NumerovIterator(𝐠, 𝐬, (first(𝐲), y′₀ * first(diff(𝐱))), 𝐱)
-end
+integrate(𝐠, 𝐬, 𝐲, 𝐱, y′₀, ::Numerov) =
+    NumerovIterator(𝐠, 𝐬, (first(𝐲), y′₀ * first(diff(𝐱))), 𝐱)
 integrate(problem::InternalProblem, y′₀, ::Numerov) =
     integrate(problem.g, problem.s, problem.y, problem.x, y′₀, Numerov())
 
