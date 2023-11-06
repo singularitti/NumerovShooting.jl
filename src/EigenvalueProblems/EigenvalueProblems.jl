@@ -27,10 +27,11 @@ struct Dirichlet{T} <: BoundaryCondition
     y₁::T
 end
 
-struct Problem{G,S,T,H}
+struct Problem{G,S,B,Y,Y′,H}
     g::G
     s::S
-    bc::DirichletBoundaryCondition{T}
+    bc::Dirichlet{B}
+    ic::InitialCondition{Y,Y′}
     n::Int64
     h::H
 end
@@ -62,7 +63,7 @@ function InternalProblem(problem::Problem)
     else
         problem.s.(𝐱)
     end
-    𝐲 = SVector(problem.bc.y₀, problem.bc.y₁)
+    𝐲 = SVector(problem.ic.y₀, problem.ic.y′₀ * problem.h)
     return InternalProblem(𝐠, 𝐬, 𝐲, 𝐱)
 end
 
