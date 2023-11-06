@@ -1,7 +1,7 @@
 # Numerov's method
 
 ```@meta
-CurrentModule = NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovIntegrator
+CurrentModule = NumerovShooting
 ```
 
 The *Numerov method* is introduced by Russian astronomer Boris Vasilyevich Numerov, to solve ODE
@@ -36,9 +36,5 @@ y_{n + 1} = 2 \frac{ 12 - 5h^2 g_{n} }{ 12 + h^2 g_{n + 1} } y_{n} - y_{n - 1}.
 
 
 ```@docs
-numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<: Real}, svec::AbstractArray{<: Real})
-numerov_iter(y_prev::Real, y::Real, dx::Real, gvec::AbstractArray{<: Real})
-
-integrate(y0::Real, yd0::Real, r::AbstractRange{<: Real}, gvec::AbstractArray{<: Real}, svec::AbstractArray{<: Real})
-integrate(y0::Real, yd0::Real, r::AbstractRange{<: Real}, g::Function, s::Function)
+integrate
 ```

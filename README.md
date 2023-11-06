@@ -1,29 +1,29 @@
-# NumericalMethodsInQuantumMechanics
+# NumerovShooting
 
 |                                 **Documentation**                                  |                                                                                                 **Build Status**                                                                                                 |                                        **Others**                                         |
 | :--------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: |
 | [![Stable][docs-stable-img]][docs-stable-url] [![Dev][docs-dev-img]][docs-dev-url] | [![Build Status][gha-img]][gha-url] [![Build Status][appveyor-img]][appveyor-url] [![Build Status][cirrus-img]][cirrus-url] [![pipeline status][gitlab-img]][gitlab-url] [![Coverage][codecov-img]][codecov-url] | [![GitHub license][license-img]][license-url] [![Code Style: Blue][style-img]][style-url] |
 
 [docs-stable-img]: https://img.shields.io/badge/docs-stable-blue.svg
-[docs-stable-url]: https://singularitti.github.io/NumericalMethodsInQuantumMechanics.jl/stable
+[docs-stable-url]: https://singularitti.github.io/NumerovShooting.jl/stable
 [docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg
-[docs-dev-url]: https://singularitti.github.io/NumericalMethodsInQuantumMechanics.jl/dev
-[gha-img]: https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/workflows/CI/badge.svg
-[gha-url]: https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/actions
-[appveyor-img]: https://ci.appveyor.com/api/projects/status/github/singularitti/NumericalMethodsInQuantumMechanics.jl?svg=true
-[appveyor-url]: https://ci.appveyor.com/project/singularitti/NumericalMethodsInQuantumMechanics-jl
-[cirrus-img]: https://api.cirrus-ci.com/github/singularitti/NumericalMethodsInQuantumMechanics.jl.svg
-[cirrus-url]: https://cirrus-ci.com/github/singularitti/NumericalMethodsInQuantumMechanics.jl
-[gitlab-img]: https://gitlab.com/singularitti/NumericalMethodsInQuantumMechanics.jl/badges/main/pipeline.svg
-[gitlab-url]: https://gitlab.com/singularitti/NumericalMethodsInQuantumMechanics.jl/-/pipelines
-[codecov-img]: https://codecov.io/gh/singularitti/NumericalMethodsInQuantumMechanics.jl/branch/main/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/singularitti/NumericalMethodsInQuantumMechanics.jl
-[license-img]: https://img.shields.io/github/license/singularitti/NumericalMethodsInQuantumMechanics.jl
-[license-url]: https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/blob/main/LICENSE
+[docs-dev-url]: https://singularitti.github.io/NumerovShooting.jl/dev
+[gha-img]: https://github.com/singularitti/NumerovShooting.jl/workflows/CI/badge.svg
+[gha-url]: https://github.com/singularitti/NumerovShooting.jl/actions
+[appveyor-img]: https://ci.appveyor.com/api/projects/status/github/singularitti/NumerovShooting.jl?svg=true
+[appveyor-url]: https://ci.appveyor.com/project/singularitti/NumerovShooting-jl
+[cirrus-img]: https://api.cirrus-ci.com/github/singularitti/NumerovShooting.jl.svg
+[cirrus-url]: https://cirrus-ci.com/github/singularitti/NumerovShooting.jl
+[gitlab-img]: https://gitlab.com/singularitti/NumerovShooting.jl/badges/main/pipeline.svg
+[gitlab-url]: https://gitlab.com/singularitti/NumerovShooting.jl/-/pipelines
+[codecov-img]: https://codecov.io/gh/singularitti/NumerovShooting.jl/branch/main/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/singularitti/NumerovShooting.jl
+[license-img]: https://img.shields.io/github/license/singularitti/NumerovShooting.jl
+[license-url]: https://github.com/singularitti/NumerovShooting.jl/blob/main/LICENSE
 [style-img]: https://img.shields.io/badge/code%20style-blue-4495d1.svg
 [style-url]: https://github.com/invenia/BlueStyle
 
-The code, which is [hosted on GitHub](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl), is tested
+The code, which is [hosted on GitHub](https://github.com/singularitti/NumerovShooting.jl), is tested
 using various continuous integration services for its validity.
 
 This repository is created and maintained by
@@ -33,6 +33,7 @@ This repository is created and maintained by
 
 This repo stores a [Julia](https://julialang.org/) implementation of Paolo Giannozzi's course [Numerical Methods in Quantum Mechanics](http://www.fisica.uniud.it/~giannozz/Corsi/MQ/mq.html)
 of year 2018-2019.
+But only for the Numerov's method in the first chapter.
 
 ## Course Description
 
@@ -92,13 +93,13 @@ From [the Julia REPL](https://docs.julialang.org/en/v1/stdlib/REPL/), type `]` t
 the [Pkg mode](https://docs.julialang.org/en/v1/stdlib/REPL/#Pkg-mode) and run:
 
 ```julia-repl
-pkg> add NumericalMethodsInQuantumMechanics
+pkg> add NumerovShooting
 ```
 
 Or, equivalently, via [`Pkg.jl`](https://pkgdocs.julialang.org/v1/):
 
 ```julia
-julia> import Pkg; Pkg.add("NumericalMethodsInQuantumMechanics")
+julia> import Pkg; Pkg.add("NumerovShooting")
 ```
 
 ## Documentation
@@ -114,9 +115,9 @@ Windows.
 ## Questions and contributions
 
 You can post usage questions on
-[our discussion page](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/discussions).
+[our discussion page](https://github.com/singularitti/NumerovShooting.jl/discussions).
 
 We welcome contributions, feature requests, and suggestions. If you encounter any problems,
-please open an [issue](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/issues).
+please open an [issue](https://github.com/singularitti/NumerovShooting.jl/issues).
 The [Contributing](@ref) page has
 a few guidelines that should be followed when opening pull requests and contributing code.
