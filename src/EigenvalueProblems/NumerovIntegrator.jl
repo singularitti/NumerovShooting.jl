@@ -103,7 +103,7 @@ as vectors (already applied on ``x``).
 - `svec::AbstractArray{<:Real}`: the result of function ``s`` applied on ``x`` (range `r`).
 """
 function integrate(𝐠, 𝐬, ic::InitialCondition, h, ::Numerov)
-    ϕ₀, ϕ′₀ = ic.y0, ic.y′0
+    ϕ₀, ϕ′₀ = ic.y₀, ic.y′₀
     ϕ = [ϕ₀, ϕ′₀ * h]  # ϕ₀, ϕ₁
     return collect(NumerovIterator(ϕ, 𝐠, 𝐬, h))
 end
