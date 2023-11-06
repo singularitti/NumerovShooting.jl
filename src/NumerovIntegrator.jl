@@ -11,12 +11,11 @@ julia>
 """
 module NumerovIntegrator
 
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems:
-    InitialCondition, Problem, InternalProblem
+using NumerovShooting: InitialCondition, Problem, InternalProblem
 using OffsetArrays: Origin, OffsetVector
 using StaticArrays: SVector
 
-import ..EigenvalueProblems: solve
+import ..NumerovShooting: solve
 
 export Numerov, integrate
 

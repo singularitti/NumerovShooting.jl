@@ -13,9 +13,8 @@ module ShootingMethod
 
 using Roots: AbstractNonBracketingMethod, find_zero
 
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems: Problem, InternalProblem, solve
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovIntegrator:
-    Numerov, integrate
+using NumerovShooting: Problem, InternalProblem, solve
+using NumerovShooting.NumerovIntegrator: Numerov, integrate
 
 export shoot
 
