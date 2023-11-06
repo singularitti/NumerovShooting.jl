@@ -14,8 +14,8 @@ before contributing to this package.
 If these guidelines are not followed, your pull requests may not be accepted.
 
 !!! info
-    The style guide is always a work in progress, and not all NumericalMethodsInQuantumMechanics code
-    follows the rules. When modifying NumericalMethodsInQuantumMechanics, please fix the style violations
+    The style guide is always a work in progress, and not all NumerovShooting code
+    follows the rules. When modifying NumerovShooting, please fix the style violations
     of the surrounding code (i.e., leave the code tidier than when you
     started). If large changes are needed, consider separating them into
     another pull request.
@@ -24,12 +24,12 @@ If these guidelines are not followed, your pull requests may not be accepted.
 
 ### Run JuliaFormatter
 
-NumericalMethodsInQuantumMechanics uses [JuliaFormatter](https://github.com/domluna/JuliaFormatter.jl) as
+NumerovShooting uses [JuliaFormatter](https://github.com/domluna/JuliaFormatter.jl) as
 an auto-formatting tool.
 
-We use the options contained in [`.JuliaFormatter.toml`](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/blob/main/.JuliaFormatter.toml).
+We use the options contained in [`.JuliaFormatter.toml`](https://github.com/singularitti/NumerovShooting.jl/blob/main/.JuliaFormatter.toml).
 
-To format your code, `cd` to the NumericalMethodsInQuantumMechanics directory, then run:
+To format your code, `cd` to the NumerovShooting directory, then run:
 
 ```julia-repl
 julia> using Pkg
@@ -42,7 +42,7 @@ julia> format("docs"); format("src"); format("test")
 ```
 
 !!! info
-    A continuous integration check verifies that all PRs made to NumericalMethodsInQuantumMechanics have
+    A continuous integration check verifies that all PRs made to NumerovShooting have
     passed the formatter.
 
 The following sections outline extra style guide points that are not fixed

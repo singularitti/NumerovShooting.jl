@@ -1,16 +1,16 @@
-using NumericalMethodsInQuantumMechanics
+using NumerovShooting
 using Documenter
 
-DocMeta.setdocmeta!(NumericalMethodsInQuantumMechanics, :DocTestSetup, :(using NumericalMethodsInQuantumMechanics); recursive=true)
+DocMeta.setdocmeta!(NumerovShooting, :DocTestSetup, :(using NumerovShooting); recursive=true)
 
 makedocs(;
-    modules=[NumericalMethodsInQuantumMechanics],
+    modules=[NumerovShooting],
     authors="singularitti <singularitti@outlook.com> and contributors",
-    repo="https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/blob/{commit}{path}#{line}",
-    sitename="NumericalMethodsInQuantumMechanics.jl",
+    repo="https://github.com/singularitti/NumerovShooting.jl/blob/{commit}{path}#{line}",
+    sitename="NumerovShooting.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://singularitti.github.io/NumericalMethodsInQuantumMechanics.jl",
+        canonical="https://singularitti.github.io/NumerovShooting.jl",
         edit_link="main",
         assets=String[],
     ),
@@ -20,6 +20,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/singularitti/NumericalMethodsInQuantumMechanics.jl",
+    repo="github.com/singularitti/NumerovShooting.jl",
     devbranch="main",
 )

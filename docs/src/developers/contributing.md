@@ -5,7 +5,7 @@ Pages = ["contributing.md"]
 Depth = 2
 ```
 
-Welcome! This document explains some ways you can contribute to NumericalMethodsInQuantumMechanics.
+Welcome! This document explains some ways you can contribute to NumerovShooting.
 
 ## Code of conduct
 
@@ -15,26 +15,26 @@ By participating, you are expected to uphold this code.
 
 ## Join the community forum
 
-First up, join the [community forum](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/discussions).
+First up, join the [community forum](https://github.com/singularitti/NumerovShooting.jl/discussions).
 
-The forum is a good place to ask questions about how to use NumericalMethodsInQuantumMechanics. You can also
+The forum is a good place to ask questions about how to use NumerovShooting. You can also
 use the forum to discuss possible feature requests and bugs before raising a
 GitHub issue (more on this below).
 
-Aside from asking questions, the easiest way you can contribute to NumericalMethodsInQuantumMechanics is to
+Aside from asking questions, the easiest way you can contribute to NumerovShooting is to
 help answer questions on the forum!
 
 ## Improve the documentation
 
 Chances are, if you asked (or answered) a question on the community forum, then
-it is a sign that the [documentation](https://singularitti.github.io/NumericalMethodsInQuantumMechanics.jl/dev/) could be
+it is a sign that the [documentation](https://singularitti.github.io/NumerovShooting.jl/dev/) could be
 improved. Moreover, since it is your question, you are probably the best-placed
 person to improve it!
 
 The docs are written in Markdown and are built using
 [`Documenter.jl`](https://github.com/JuliaDocs/Documenter.jl).
 You can find the source of all the docs
-[here](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/tree/main/docs).
+[here](https://github.com/singularitti/NumerovShooting.jl/tree/main/docs).
 
 If your change is small (like fixing typos or one or two sentence corrections),
 the easiest way to do this is via GitHub's online editor. (GitHub has
@@ -44,26 +44,26 @@ on how to do this.)
 If your change is larger or touches multiple files, you will need to make the
 change locally and then use Git to submit a
 [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
-(See [Contribute code to NumericalMethodsInQuantumMechanics](@ref) below for more on this.)
+(See [Contribute code to NumerovShooting](@ref) below for more on this.)
 
 ## File a bug report
 
-Another way to contribute to NumericalMethodsInQuantumMechanics is to file
-[bug reports](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/issues/new?template=bug_report.md).
+Another way to contribute to NumerovShooting is to file
+[bug reports](https://github.com/singularitti/NumerovShooting.jl/issues/new?template=bug_report.md).
 
 Make sure you read the info in the box where you write the body of the issue
 before posting. You can also find a copy of that info
-[here](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/blob/main/.github/ISSUE_TEMPLATE/bug_report.md).
+[here](https://github.com/singularitti/NumerovShooting.jl/blob/main/.github/ISSUE_TEMPLATE/bug_report.md).
 
 !!! tip
     If you're unsure whether you have a real bug, post on the
-    [community forum](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/discussions)
+    [community forum](https://github.com/singularitti/NumerovShooting.jl/discussions)
     first. Someone will either help you fix the problem or let you know the
     most appropriate place to open a bug report.
 
-## Contribute code to NumericalMethodsInQuantumMechanics
+## Contribute code to NumerovShooting
 
-Finally, you can also contribute code to NumericalMethodsInQuantumMechanics!
+Finally, you can also contribute code to NumerovShooting!
 
 !!! warning
     If you do not have experience with Git, GitHub, and Julia development, the
@@ -75,43 +75,43 @@ Finally, you can also contribute code to NumericalMethodsInQuantumMechanics!
     - [Julia package development](https://docs.julialang.org/en/v1/stdlib/Pkg/#Developing-packages-1)
 
 Once you are familiar with Git and GitHub, the workflow for contributing code to
-NumericalMethodsInQuantumMechanics is similar to the following:
+NumerovShooting is similar to the following:
 
 ### Step 1: decide what to work on
 
-The first step is to find an [open issue](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/issues)
+The first step is to find an [open issue](https://github.com/singularitti/NumerovShooting.jl/issues)
 (or open a new one) for the problem you want to solve. Then, _before_ spending
 too much time on it, discuss what you are planning to do in the issue to see if
 other contributors are fine with your proposed changes. Getting feedback early can
 improve code quality and avoid time spent writing code that does not get merged into
-NumericalMethodsInQuantumMechanics.
+NumerovShooting.
 
 !!! tip
     At this point, remember to be patient and polite; you may get a _lot_ of
     comments on your issue! However, do not be afraid! Comments mean that people are
-    willing to help you improve the code that you are contributing to NumericalMethodsInQuantumMechanics.
+    willing to help you improve the code that you are contributing to NumerovShooting.
 
-### Step 2: fork NumericalMethodsInQuantumMechanics
+### Step 2: fork NumerovShooting
 
-Go to [https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl)
+Go to [https://github.com/singularitti/NumerovShooting.jl](https://github.com/singularitti/NumerovShooting.jl)
 and click the "Fork" button in the top-right corner. This will create a copy of
-NumericalMethodsInQuantumMechanics under your GitHub account.
+NumerovShooting under your GitHub account.
 
-### Step 3: install NumericalMethodsInQuantumMechanics locally
+### Step 3: install NumerovShooting locally
 
 Similar to [Installation Guide](@ref), open the Julia REPL and run:
 
 ```@repl
 using Pkg
 Pkg.update()
-Pkg.develop("NumericalMethodsInQuantumMechanics")
+Pkg.develop("NumerovShooting")
 ```
 
 Then the package will be cloned to your local machine. On *nix systems, the default path is
-`~/.julia/dev/NumericalMethodsInQuantumMechanics` unless you modify the
+`~/.julia/dev/NumerovShooting` unless you modify the
 [`JULIA_DEPOT_PATH`](http://docs.julialang.org/en/v1/manual/environment-variables/#JULIA_DEPOT_PATH-1)
 environment variable. If you're on
-Windows, this will be `C:\\Users\\<my_name>\\.julia\\dev\\NumericalMethodsInQuantumMechanics`.
+Windows, this will be `C:\\Users\\<my_name>\\.julia\\dev\\NumerovShooting`.
 In the following text, we will call it `PKGROOT`.
 
 Go to `PKGROOT`, start a new Julia session, and run
@@ -133,9 +133,9 @@ The next step is to check out a development branch. In a terminal (or command
 prompt on Windows), run:
 
 ```bash
-$ cd ~/.julia/dev/NumericalMethodsInQuantumMechanics
+$ cd ~/.julia/dev/NumerovShooting
 
-$ git remote add GITHUB_ACCOUNT https://github.com/GITHUB_ACCOUNT/NumericalMethodsInQuantumMechanics.jl.git
+$ git remote add GITHUB_ACCOUNT https://github.com/GITHUB_ACCOUNT/NumerovShooting.jl.git
 
 $ git checkout main
 
@@ -146,7 +146,7 @@ $ git checkout -b my_new_branch
 
 ### Step 5: make changes
 
-Now make any changes to the source code inside the `~/.julia/dev/NumericalMethodsInQuantumMechanics`
+Now make any changes to the source code inside the `~/.julia/dev/NumerovShooting`
 directory.
 
 Make sure you:
@@ -161,16 +161,16 @@ Make sure you:
 
 ### Step 6a: test your code changes
 
-To test that your changes work, run the NumericalMethodsInQuantumMechanics test-suite by opening Julia and
+To test that your changes work, run the NumerovShooting test-suite by opening Julia and
 running:
 
 ```julia-repl
-julia> cd(joinpath(DEPOT_PATH[1], "dev", "NumericalMethodsInQuantumMechanics"))
+julia> cd(joinpath(DEPOT_PATH[1], "dev", "NumerovShooting"))
 
 julia> using Pkg
 
 julia> Pkg.activate(".")
-  Activating new project at `~/.julia/dev/NumericalMethodsInQuantumMechanics`
+  Activating new project at `~/.julia/dev/NumerovShooting`
 
 julia> Pkg.test()
 ```
@@ -192,12 +192,12 @@ julia> Pkg.test()
 Open Julia, then run:
 
 ```julia-repl
-julia> cd(joinpath(DEPOT_PATH[1], "dev", "NumericalMethodsInQuantumMechanics", "docs"))
+julia> cd(joinpath(DEPOT_PATH[1], "dev", "NumerovShooting", "docs"))
 
 julia> using Pkg
 
 julia> Pkg.activate(".")
-  Activating new project at `~/.julia/dev/NumericalMethodsInQuantumMechanics/docs`
+  Activating new project at `~/.julia/dev/NumerovShooting/docs`
 
 julia> include("src/make.jl")
 ```
@@ -210,7 +210,7 @@ After a while, a folder `PKGROOT/docs/build` will appear. Open
 
 !!! tip
     If there's a problem with the tests that you don't know how to fix, don't
-    worry. Continue to step 5, and one of the NumericalMethodsInQuantumMechanics contributors will comment
+    worry. Continue to step 5, and one of the NumerovShooting contributors will comment
     on your pull request, telling you how to fix things.
 
 ### Step 7: make a pull request
@@ -218,7 +218,7 @@ After a while, a folder `PKGROOT/docs/build` will appear. Open
 Once you've made changes, you're ready to push the changes to GitHub. Run:
 
 ```bash
-$ cd ~/.julia/dev/NumericalMethodsInQuantumMechanics
+$ cd ~/.julia/dev/NumerovShooting
 
 $ git add .
 
@@ -227,7 +227,7 @@ $ git commit -m "A descriptive message of the changes"
 $ git push -u GITHUB_ACCOUNT my_new_branch
 ```
 
-Then go to [our pull request page](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl/pulls)
+Then go to [our pull request page](https://github.com/singularitti/NumerovShooting.jl/pulls)
 and follow the instructions that pop up to open a pull request.
 
 ### Step 8: respond to comments
@@ -235,7 +235,7 @@ and follow the instructions that pop up to open a pull request.
 At this point, remember to be patient and polite; you may get a _lot_ of
 comments on your pull request! However, do not be afraid! A lot of comments
 means that people are willing to help you improve the code that you are
-contributing to NumericalMethodsInQuantumMechanics.
+contributing to NumerovShooting.
 
 To respond to the comments, go back to step 5, make any changes, test the
 changes in step 6, and then make a new commit in step 7. Your PR will
@@ -247,7 +247,7 @@ Once the PR is merged, clean-up your Git repository, ready for the
 next contribution!
 
 ```bash
-$ cd ~/.julia/dev/NumericalMethodsInQuantumMechanics
+$ cd ~/.julia/dev/NumerovShooting
 
 $ git checkout main
 
@@ -259,4 +259,4 @@ $ git pull
     It's particularly helpful if you do this after your first pull request
     because you'll know all the parts that could be explained better.
 
-Thanks for contributing to NumericalMethodsInQuantumMechanics!
+Thanks for contributing to NumerovShooting!

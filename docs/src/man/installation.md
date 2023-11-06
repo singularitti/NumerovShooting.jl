@@ -6,7 +6,7 @@ Depth = 2
 ```
 
 Here are the installation instructions for package
-[NumericalMethodsInQuantumMechanics](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl).
+[NumerovShooting](https://github.com/singularitti/NumerovShooting.jl).
 If you have trouble installing it, please refer to our [Troubleshooting](@ref) page
 for more information.
 
@@ -101,13 +101,13 @@ Now I am using macOS as a standard platform to explain the following steps:
 
    julia> Pkg.update()
 
-   julia> Pkg.add("NumericalMethodsInQuantumMechanics")
+   julia> Pkg.add("NumerovShooting")
    ```
 
 3. Run
 
    ```julia-repl
-   julia> using NumericalMethodsInQuantumMechanics
+   julia> using NumerovShooting
    ```
 
    and have fun!
@@ -115,12 +115,12 @@ Now I am using macOS as a standard platform to explain the following steps:
 4. Please keep the Julia session active while using it. Restarting the session may take some time.
 
 If you want to install the latest in-development (probably buggy)
-version of NumericalMethodsInQuantumMechanics, type
+version of NumerovShooting, type
 
 ```@repl
 using Pkg
 Pkg.update()
-pkg"add https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl"
+pkg"add https://github.com/singularitti/NumerovShooting.jl"
 ```
 
 in the second step above.
@@ -128,13 +128,13 @@ in the second step above.
 ## Update the package
 
 Please [watch](https://docs.github.com/en/account-and-profile/managing-subscriptions-and-notifications-on-github/setting-up-notifications/configuring-notifications#configuring-your-watch-settings-for-an-individual-repository)
-our [GitHub repository](https://github.com/singularitti/NumericalMethodsInQuantumMechanics.jl)
+our [GitHub repository](https://github.com/singularitti/NumerovShooting.jl)
 for new releases.
-Once we release a new version, you can update NumericalMethodsInQuantumMechanics by typing
+Once we release a new version, you can update NumerovShooting by typing
 
 ```@repl
 using Pkg
-Pkg.update("NumericalMethodsInQuantumMechanics")
+Pkg.update("NumerovShooting")
 Pkg.gc()
 ```
 
@@ -150,10 +150,10 @@ In this case, you may want to uninstall and reinstall the package. Here is how t
    ```julia-repl
    julia> using Pkg
 
-   julia> Pkg.rm("NumericalMethodsInQuantumMechanics")
+   julia> Pkg.rm("NumerovShooting")
 
    julia> Pkg.gc()
    ```
 
 2. Press `Ctrl+D` to quit the current session. Start a new Julia session and
-   reinstall NumericalMethodsInQuantumMechanics.
+   reinstall NumerovShooting.
