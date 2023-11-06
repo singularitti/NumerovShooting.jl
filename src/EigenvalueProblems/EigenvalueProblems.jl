@@ -14,7 +14,7 @@ module EigenvalueProblems
 using OffsetArrays: Origin, OffsetVector
 using StaticArrays: SVector
 
-export InitialCondition, BoundaryCondition
+export InitialCondition, DirichletBoundaryCondition, Problem, expand
 
 struct InitialCondition{Y,Y′}
     y₀::Y
@@ -63,6 +63,8 @@ function InternalProblem(problem::Problem)
         throw(DimensionMismatch("the length of `g` and `s` must be `n`!"))
     end
 end
+
+expand(problem::Problem) = InternalProblem(problem)
 
 include("NumerovIntegrator.jl")
 include("ShootingMethod.jl")
