@@ -14,7 +14,7 @@ module NumerovIntegrator
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems: InitialCondition
 using OffsetArrays: Origin, OffsetVector
 
-export integrate, eachstep
+export Numerov, integrate, eachstep
 
 abstract type Integrator end
 struct Numerov <: Integrator end
@@ -102,15 +102,10 @@ as vectors (already applied on ``x``).
 - `gvec::AbstractArray{<:Real}`: the result of function ``g`` applied on ``x`` (range `r`).
 - `svec::AbstractArray{<:Real}`: the result of function ``s`` applied on ``x`` (range `r`).
 """
-function integrate(gvec, svec, ic::InitialCondition, ::Numerov)
-    if length(gvec) != length(svec)
-        throw(DimensionMismatch("Integ"))
-    end
-    N = length(gvec)
-    dx = inv(N)
-    ϕ₀, ϕ′₀ = ic
-    ϕ = [ϕ₀, ϕ′₀ * dx]  # ϕ₀, ϕ₁
-    return collect(NumerovIterator(ϕ, gvec[3:end], svec[3:end], dx))
+function integrate(𝐠, 𝐬, ic::InitialCondition, h, ::Numerov)
+    ϕ₀, ϕ′₀ = ic.y0, ic.y′0
+    ϕ = [ϕ₀, ϕ′₀ * h]  # ϕ₀, ϕ₁
+    return collect(NumerovIterator(ϕ, 𝐠, 𝐬, h))
 end
 """
     integrate(ic, r, g, s)
@@ -123,10 +118,10 @@ Same as `integrate(ic, r, gvec, svec)`, but `g` and `s` are two functions.
 - `g::Function`: the function ``g``.
 - `s::Function`: the function ``s``.
 """
-function integrate(g::Function, s::Function, ic::InitialCondition, dx, ::Numerov)
-    vec = 0:dx:1
-    gvec, svec = map(g, vec), map(s, vec)
-    return integrate(gvec, svec, ic)
+function integrate(g::Function, s::Function, ic::InitialCondition, h, ::Numerov)
+    𝐱 = 0:h:1
+    𝐠, 𝐬 = map(g, 𝐱), map(s, 𝐱)
+    return integrate(𝐠, 𝐬, ic, h, Numerov())
 end
 
 end
