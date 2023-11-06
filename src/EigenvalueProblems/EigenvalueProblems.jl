@@ -14,7 +14,7 @@ module EigenvalueProblems
 using OffsetArrays: Origin, OffsetVector
 using StaticArrays: SVector
 
-export InitialCondition, DirichletBoundaryCondition, Problem, expand
+export InitialCondition, Dirichlet, Problem, expand, solve
 
 struct InitialCondition{Y,Y′}
     y₀::Y
