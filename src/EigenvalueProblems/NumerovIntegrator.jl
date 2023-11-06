@@ -46,6 +46,13 @@ struct NumerovIterator{N,G,S,Y,X} <: Integrator
     y::OffsetVector{Y,SVector{2,Y}}
     x::OffsetVector{X,SVector{N,X}}
 end
+function NumerovIterator(𝐠, 𝐬, 𝐲, 𝐱)
+    𝐠 = Origin(0)(SVector{length(𝐠)}(𝐠))
+    𝐬 = Origin(0)(SVector{length(𝐬)}(𝐬))
+    𝐲 = Origin(0)(SVector{2}(𝐲))
+    𝐱 = Origin(0)(SVector{length(𝐱)}(𝐱))
+    return NumerovIterator(𝐠, 𝐬, 𝐲, 𝐱)
+end
 
 # See https://github.com/singularitti/Fibonacci.jl/blob/4f1292a/src/Fibonacci.jl#L44-L57
 # See https://en.wikipedia.org/wiki/Numerov%27s_method#The_method
