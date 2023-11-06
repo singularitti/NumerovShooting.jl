@@ -1,6 +1,6 @@
-using NumericalMethodsInQuantumMechanics
+using NumerovShooting
 using Test
 
-@testset "NumericalMethodsInQuantumMechanics.jl" begin
-    # Write your own tests here.
+@testset "NumerovShooting.jl" begin
+    # Write your tests here.
 end
