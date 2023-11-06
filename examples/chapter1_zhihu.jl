@@ -4,9 +4,7 @@ using LinearAlgebra: normalize
 using Plots
 using Roots
 
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovIntegrator
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems.ShootingMethod
+using NumerovShooting
 
 PLOT_DEFAULTS = Dict(
     :size => (800, 450),

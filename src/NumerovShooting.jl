@@ -58,7 +58,7 @@ end
 
 expand(problem::Problem) = InternalProblem(problem)
 
-include("NumerovIntegrator.jl")
-include("ShootingMethod.jl")
+include("numerov.jl")
+include("shooting.jl")
 
 end
