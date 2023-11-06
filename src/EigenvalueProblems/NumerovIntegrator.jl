@@ -13,6 +13,7 @@ module NumerovIntegrator
 
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems: InitialCondition
 using OffsetArrays: Origin, OffsetVector
+using StaticArrays: SVector
 
 export Numerov, integrate, eachstep
 
@@ -20,13 +21,12 @@ abstract type Integrator end
 struct Numerov <: Integrator end
 
 struct NumerovStep{G,S,Y,H}
-    g::NTuple{3,G}
-    s::NTuple{3,S}
-    y::NTuple{2,Y}
+    g::SVector{3,G}
+    s::SVector{3,S}
+    y::SVector{2,Y}
     h::H
 end
-NumerovStep(g, s, y, h) =
-    NumerovStep{eltype(g),eltype(s),eltype(y),typeof(h)}(Tuple(g), Tuple(s), Tuple(y), h)
+NumerovStep(g, s, y, h) = NumerovStep(SVector{3}(g), SVector{3}(s), SVector{2}(y), h)
 
 function evaluate(step::NumerovStep)
     gᵢ₋₁, gᵢ, gᵢ₊₁ = step.g
