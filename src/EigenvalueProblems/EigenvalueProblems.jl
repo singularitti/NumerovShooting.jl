@@ -24,6 +24,13 @@ struct DirichletBoundaryCondition{T} <: BoundaryCondition
     y₁::T
 end
 
+struct Problem{G,S,T,H}
+    g::G
+    s::S
+    bc::DirichletBoundaryCondition{T}
+    h::H
+end
+
 include("NumerovIntegrator.jl")
 include("ShootingMethod.jl")
 
