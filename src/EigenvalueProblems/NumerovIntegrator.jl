@@ -27,11 +27,6 @@ struct NumerovStep{G,S,Y,H}
 end
 NumerovStep(g, s, y, h) =
     NumerovStep{eltype(g),eltype(s),eltype(y),typeof(h)}(Tuple(g), Tuple(s), Tuple(y), h)
-function NumerovStep(g::Function, s::Function, y::Function, x)
-    h = unique(diff(collect(x)))
-    @assert length(h) == 1 "the step length of `x` must be the same!"
-    return NumerovStep(g.(x), s.(x), y.(x), only(h))
-end
 
 function evaluate(step::NumerovStep)
     gᵢ₋₁, gᵢ, gᵢ₊₁ = step.g
@@ -106,22 +101,6 @@ function integrate(𝐠, 𝐬, ic::InitialCondition, h, ::Numerov)
     ϕ₀, ϕ′₀ = ic.y₀, ic.y′₀
     ϕ = [ϕ₀, ϕ′₀ * h]  # ϕ₀, ϕ₁
     return collect(NumerovIterator(𝐠, 𝐬, ϕ, h))
-end
-"""
-    integrate(ic, r, g, s)
-
-Same as `integrate(ic, r, gvec, svec)`, but `g` and `s` are two functions.
-
-# Arguments
-- `ic::InitialCondition`: the initial condition ``y(x_0) = y_0`` and ``y'(x_0) = y_0'``, could be a guess.
-- `r::AbstractRange{<:Real}`: a range, the domain ``x``.
-- `g::Function`: the function ``g``.
-- `s::Function`: the function ``s``.
-"""
-function integrate(g::Function, s::Function, ic::InitialCondition, h, ::Numerov)
-    𝐱 = 0:h:1
-    𝐠, 𝐬 = map(g, 𝐱), map(s, 𝐱)
-    return integrate(𝐠, 𝐬, ic, h, Numerov())
 end
 
 end
