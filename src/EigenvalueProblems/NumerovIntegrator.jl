@@ -76,7 +76,7 @@ end
 
 Base.eltype(::Type{NumerovIterator{N,G,S,Y,X}}) where {N,G,S,Y,X} = Y
 
-Base.length(::NumerovIterator{N}) where {N} = N
+Base.length(::NumerovIterator{N}) where {N} = N - 1
 
 """
     integrate(ic, r, gvec, svec)
