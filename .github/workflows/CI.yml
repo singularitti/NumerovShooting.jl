@@ -72,6 +72,6 @@ jobs:
       - run: |
           julia --project=docs -e '
             using Documenter: DocMeta, doctest
-            using NumericalMethodsInQuantumMechanics
-            DocMeta.setdocmeta!(NumericalMethodsInQuantumMechanics, :DocTestSetup, :(using NumericalMethodsInQuantumMechanics); recursive=true)
-            doctest(NumericalMethodsInQuantumMechanics)'
+            using NumerovShooting
+            DocMeta.setdocmeta!(NumerovShooting, :DocTestSetup, :(using NumerovShooting); recursive=true)
+            doctest(NumerovShooting)'
