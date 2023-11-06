@@ -12,6 +12,7 @@ julia>
 module NumerovIntegrator
 
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems: InitialCondition
+using OffsetArrays: Origin, OffsetVector
 
 export integrate, eachstep
 
@@ -44,32 +45,42 @@ function evaluate(step::NumerovStep)
     return yᵢ₊₁
 end
 
-struct NumerovIterator{N,Y,G,S,H} <: Integrator
-    y::NTuple{2,Y}
-    g::NTuple{N,G}
-    s::NTuple{N,S}
+struct NumerovIterator{Y,G,S,H} <: Integrator
+    y::OffsetVector{Y,Vector{Y}}
+    g::OffsetVector{G,Vector{G}}
+    s::OffsetVector{S,Vector{S}}
     h::H
 end
-NumerovIterator(y, g, s, h) =
-    NumerovIterator{length(g),eltype(y),eltype(g),eltype(s),typeof(h)}(
-        Tuple(y), Tuple(g), Tuple(s), h
+function NumerovIterator(y, g, s, h)
+    if length(y) != 2
+        throw(ArgumentError("the length of `y` must be 2!"))
+    end
+    if size(g) != size(s)
+        throw(DimensionMismatch("the size of `g` and `s` must be the same!"))
+    end
+    if length(g) < 3
+        throw(ArgumentError("the length of `g` and `s` must be greater than 3!"))
+    end
+    return NumerovIterator{eltype(y),eltype(g),eltype(s),typeof(h)}(
+        Origin(0)(y), Origin(0)(g), Origin(0)(s), h
     )
+end
 
 # See https://github.com/singularitti/Fibonacci.jl/blob/4f1292a/src/Fibonacci.jl#L44-L57
-Base.iterate(iter::NumerovIterator) = (last(iter.y), (iter.y, 3))
-function Base.iterate(iter::NumerovIterator, ((yᵢ₋₂, yᵢ₋₁), i))
-    if i > length(iter.g)
+Base.iterate(iter::NumerovIterator) = iter.y[0], (iter.y, 1)  # y₀, ((y₀, y₁), 1)
+function Base.iterate(iter::NumerovIterator, ((yᵢ₋₁, yᵢ), i))
+    if i > length(iter.g) - 2  # Minus 2 since we start the index from 0 & skip the first element of `y` (index=0)
         return nothing
     else
-        yᵢ = evaluate(
+        yᵢ₊₁ = evaluate(
             NumerovStep(
-                (yᵢ₋₂, yᵢ₋₁),
-                (iter.g[i - 2], iter.g[i - 1], iter.g[i]),
-                (iter.s[i - 2], iter.s[i - 1], iter.s[i]),
+                (yᵢ₋₁, yᵢ),
+                (iter.g[i - 1], iter.g[i], iter.g[i + 1]),  # gᵢ₋₁, gᵢ, gᵢ₊₁
+                (iter.s[i - 1], iter.s[i], iter.s[i + 1]),  # sᵢ₋₁, sᵢ, sᵢ₊₁
                 iter.h,
             ),
         )
-        return yᵢ, ((yᵢ₋₁, yᵢ), i + 1)
+        return yᵢ, ((yᵢ, yᵢ₊₁), i + 1)
     end
 end
 
