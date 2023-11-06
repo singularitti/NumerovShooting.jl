@@ -11,23 +11,22 @@ julia>
 """
 module ShootingMethod
 
-using Roots: find_zero, AbstractUnivariateZeroMethod
+using Roots: AbstractNonBracketingMethod, find_zero
 
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems:
-    InitialCondition, BoundaryCondition
-using NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovIntegrator: integrate
+using NumericalMethodsInQuantumMechanics.EigenvalueProblems: Problem, InternalProblem, solve
+using NumericalMethodsInQuantumMechanics.EigenvalueProblems.NumerovIntegrator:
+    Numerov, integrate
 
 export shoot
 
-# last means ``y(t1)``, `ic` contains a guess, `bc[2]` is ``y1``.
-# `last(integrate(ic_guess, r, g, s)) - bc[2]` means ``y(t1; yd0) - y1``.
-function shoot(g, s, bc::BoundaryCondition, init, args...)
-    f = guess -> last(integrate(g, s, InitialCondition(bc.y0, guess), args...)) - bc.y1
-    # `x` of the root finding is `y′0`.
-    return find_zero(f, init)
+function shoot(problem::Problem, g₀_init, method::AbstractNonBracketingMethod)
+    function f(g₀)
+        problem = Problem(
+            Returns(g₀), problem.s, problem.bc, problem.ic, problem.n, problem.h
+        )
+        return last(solve(problem, Numerov())) - problem.bc.y₁
+    end
+    return find_zero(f, g₀_init, method)
 end
-shoot(g::AbstractVector, bc::BoundaryCondition, init, args...) =
-    shoot(g, zeros(length(g)), bc, init, args...)
-shoot(g::Function, bc::BoundaryCondition, init, args...) = shoot(g, zero, bc, init, args...)
 
 end
