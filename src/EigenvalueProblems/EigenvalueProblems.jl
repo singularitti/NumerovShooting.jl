@@ -51,7 +51,7 @@ function InternalProblem(𝐠, 𝐬, 𝐲, 𝐱)
     end
 end
 function InternalProblem(problem::Problem)
-    𝐱 = range(0; length=problem.n, step=problem.h)
+    𝐱 = range(zero(problem.h); length=problem.n + 1, step=problem.h)
     𝐠 = if problem.g isa AbstractArray || problem.g isa Tuple
         problem.g
     else
