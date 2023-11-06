@@ -13,11 +13,16 @@ module EigenvalueProblems
 
 export InitialCondition, BoundaryCondition
 
-const InitialCondition = @NamedTuple{y0, y′0}
-InitialCondition(y0, y′0) = InitialCondition((y0, y′0))
+struct InitialCondition{Y,Y′}
+    y₀::Y
+    y′₀::Y′
+end
 
-const BoundaryCondition = @NamedTuple{y0, y1}
-BoundaryCondition(y0, y1) = BoundaryCondition((y0, y1))
+abstract type BoundaryCondition end
+struct DirichletBoundaryCondition{T} <: BoundaryCondition
+    y₀::T
+    y₁::T
+end
 
 include("NumerovIntegrator.jl")
 include("ShootingMethod.jl")
