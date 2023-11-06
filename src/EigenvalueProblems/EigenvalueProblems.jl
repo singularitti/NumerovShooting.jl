@@ -68,6 +68,8 @@ end
 
 expand(problem::Problem) = InternalProblem(problem)
 
+function solve end
+
 include("NumerovIntegrator.jl")
 include("ShootingMethod.jl")
 
