@@ -36,10 +36,19 @@ struct Problem{G,S,T,H}
 end
 
 struct InternalProblem{N,G,S,Y,X}
-    g::OffsetVector{G,SVector{N,G}}
-    s::OffsetVector{S,SVector{N,S}}
-    y::OffsetVector{Y,SVector{2,Y}}
-    x::OffsetVector{X,SVector{N,X}}
+    g::SVector{N,G}
+    s::SVector{N,S}
+    y::SVector{2,Y}
+    x::SVector{N,X}
+end
+function InternalProblem(𝐠, 𝐬, 𝐲, 𝐱)
+    if size(𝐠) == size(𝐬) == size(𝐱)
+        return InternalProblem{length(𝐱),eltype(𝐠),eltype(𝐬),eltype(𝐲),eltype(𝐱)}(
+            𝐠, 𝐬, 𝐲, 𝐱
+        )
+    else
+        throw(DimensionMismatch("the length of `𝐠`, `𝐬`, and `𝐱` must be the same!"))
+    end
 end
 function InternalProblem(problem::Problem)
     𝐱 = range(0; length=problem.n, step=problem.h)
@@ -53,15 +62,8 @@ function InternalProblem(problem::Problem)
     else
         problem.s.(𝐱)
     end
-    if size(𝐠) == size(𝐬) == size(𝐱)
-        𝐠 = Origin(0)(𝐠)
-        𝐬 = Origin(0)(𝐬)
-        𝐲 = Origin(0)(SVector(problem.bc.y₀, problem.bc.y₁))
-        𝐱 = Origin(0)(𝐱)
-        return InternalProblem(𝐠, 𝐬, 𝐲, 𝐱)
-    else
-        throw(DimensionMismatch("the length of `g` and `s` must be `n`!"))
-    end
+    𝐲 = SVector(problem.bc.y₀, problem.bc.y₁)
+    return InternalProblem(𝐠, 𝐬, 𝐲, 𝐱)
 end
 
 expand(problem::Problem) = InternalProblem(problem)
