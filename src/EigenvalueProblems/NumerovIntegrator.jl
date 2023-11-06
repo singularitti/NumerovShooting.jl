@@ -12,11 +12,11 @@ julia>
 module NumerovIntegrator
 
 using NumericalMethodsInQuantumMechanics.EigenvalueProblems:
-    InitialCondition, InternalProblem
+    InitialCondition, Problem, InternalProblem
 using OffsetArrays: Origin, OffsetVector
 using StaticArrays: SVector
 
-export Numerov, integrate
+export Numerov, integrate, solve
 
 abstract type Integrator end
 struct Numerov <: Integrator end
@@ -92,5 +92,11 @@ as vectors (already applied on ``x``).
 """
 integrate(𝐠, 𝐬, 𝐲, 𝐱, y′₀, ::Numerov) =
     NumerovIterator(𝐠, 𝐬, (first(𝐲), y′₀ * first(diff(𝐱))), 𝐱)
+
+function solve(problem::InternalProblem, y′₀, ::Numerov)
+    values = collect(integrate(problem.g, problem.s, problem.y, problem.x, y′₀, Numerov()))
+    return prepend!(values, first(problem.y))
+end
+solve(problem::Problem, y′₀, ::Numerov) = solve(InternalProblem(problem), y′₀, Numerov())
 
 end
