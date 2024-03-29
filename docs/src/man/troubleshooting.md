@@ -5,8 +5,8 @@ Pages = ["troubleshooting.md"]
 Depth = 2
 ```
 
-This page collects some possible errors you may encounter along with tips on how to fix them.
-If you have some questions about how to use this code, you are welcome to
+This page lists possible errors you may encounter and provides tips on how to fix them.
+If you have any questions about how to use this code, feel free to
 [discuss with us](https://github.com/singularitti/NumerovShooting.jl/discussions).
 
 If you have additional tips, please either
@@ -15,30 +15,32 @@ If you have additional tips, please either
 
 ## Cannot find the Julia executable
 
-Make sure you have Julia installed in your environment. Please download the latest
-[stable version](https://julialang.org/downloads/#current_stable_release) for your platform.
-If you are using a *nix system, the recommended way is to use
-[Juliaup](https://github.com/JuliaLang/juliaup). If you do not want to install Juliaup
-or you are using other platforms that Julia supports, download the corresponding binaries.
-Then, create a symbolic link to the Julia executable.
-If the path is not in your [`$PATH` environment variable](https://en.wikipedia.org/wiki/PATH_(variable)),
-export it to your `$PATH`.
+Ensure that Julia is installed in your environment. Please download the latest
+[stable version](https://julialang.org/downloads/#current_stable_release) for your platform,
+and it's recommended to do it indirectly with
+[Juliaup](https://github.com/JuliaLang/juliaup) as explained on that page.
+
+If you prefer not to install Juliaup, download the corresponding binaries instead.
+Next, create a symbolic link to the Julia executable.
+If the path is not included in your
+[`$PATH` environment variable](https://en.wikipedia.org/wiki/PATH_(variable)), add it by
+exporting the path to `$PATH`.
 
 Some clusters, like
 [Comet](https://www.sdsc.edu/support/user_guides/comet.html),
 or [Expanse](https://www.sdsc.edu/services/hpc/expanse/index.html),
-already have Julia installed as a module, you may
-just `module load julia` to use it. If not, either install by yourself or contact your
-administrator.
+already have Julia installed as a module, you can
+just `module load julia` to use it. If not, you should either install it yourself or contact
+your system administrator.
 
 See [Installation Guide](@ref) for more information.
 
 ## Julia starts slow
 
-First, we recommend you download the latest version of Julia. Usually, the newest version
-has the best performance.
+First, we recommend downloading the latest version of Julia using Juliaup. Usually, the
+latest version has the best performance.
 
-If you need to use Julia for a simple, one-time task, you can start the Julia REPL with
+For simple, one-time tasks in Julia, you can start the Julia REPL with
 
 ```bash
 julia --compile=min
@@ -50,8 +52,7 @@ to minimize compilation or
 julia --optimize=0
 ```
 
-to minimize optimizations, or just use both. Or you could make a system image
-and run with
+to minimize optimizations. Or you could make a system image and run with
 
 ```bash
 julia --sysimage custom-image.so

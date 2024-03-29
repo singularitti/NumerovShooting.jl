@@ -1,3 +1,7 @@
+```@meta
+CurrentModule = NumerovShooting
+```
+
 # NumerovShooting
 
 Documentation for [NumerovShooting](https://github.com/singularitti/NumerovShooting.jl).
