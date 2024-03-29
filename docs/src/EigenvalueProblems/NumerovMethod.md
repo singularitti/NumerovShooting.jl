@@ -1,8 +1,8 @@
-# Numerov's method
-
 ```@meta
 CurrentModule = NumerovShooting
 ```
+
+# Numerov's method
 
 The *Numerov method* is introduced by Russian astronomer Boris Vasilyevich Numerov, to solve ODE
 
@@ -32,8 +32,6 @@ If `s(x) \\equiv 0` on the domain of ``x``, the the above equation simplifies to
 ```math
 y_{n + 1} = 2 \frac{ 12 - 5h^2 g_{n} }{ 12 + h^2 g_{n + 1} } y_{n} - y_{n - 1}.
 ```
-
-
 
 ```@docs
 integrate
