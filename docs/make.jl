@@ -20,7 +20,7 @@ makedocs(;
             "Troubleshooting" => "man/troubleshooting.md",
         ],
         "Reference" => Any[
-            "Public API" => "lib/public.md",
+            # "Public API" => "lib/public.md",
             # "Internals" => map(
             #     s -> "lib/internals/$(s)",
             #     sort(readdir(joinpath(@__DIR__, "src/lib/internals"))),
