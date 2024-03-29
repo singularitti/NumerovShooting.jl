@@ -27,7 +27,7 @@ where ``g_{n} = g(x_{n})`` and ``s_{n} = s(x_{n})``, etc.
 
 Therefore, we could split the ``x``-axis to ``N`` pieces, and solve the solution ``y(x)`` piece-by-piece, i.e., from `y[1]` and `y[2]` to `y[3]`, repeatedly.
 
-If `s(x) \\equiv 0` on the domain of ``x``, the the above equation simplifies to
+If ``s(x) \equiv 0`` on the domain of ``x``, the the above equation simplifies to
 
 ```math
 y_{n + 1} = 2 \frac{ 12 - 5h^2 g_{n} }{ 12 + h^2 g_{n + 1} } y_{n} - y_{n - 1}.
